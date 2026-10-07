@@ -3,178 +3,324 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Financeiro Interativo - Nando</title>
+  <title>Dashboard Financeiro - Estilo Mobills</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
     body { background-color: #121214; color: #e1e1e6; padding: 20px; }
-    .container { max-width: 1000px; margin: 0 auto; }
-    h1 { margin-bottom: 20px; font-size: 24px; color: #fff; }
+    .container { max-width: 1100px; margin: 0 auto; }
     
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 25px; }
-    .card { background-color: #202024; border-radius: 8px; padding: 20px; border: 1px solid #29292e; }
-    .card h3 { font-size: 14px; color: #a8a8b3; margin-bottom: 10px; text-transform: uppercase; }
-    .card .value { font-size: 24px; font-weight: bold; }
-    
+    /* Header Topo Mobills */
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .header h1 { font-size: 22px; font-weight: 600; color: #fff; }
+    .btn-add { background-color: #7c3aed; color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .btn-add:hover { background-color: #6d28d9; }
+
+    /* Cards de Resumo */
+    .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .card { background-color: #1e1e24; border-radius: 12px; padding: 18px; border: 1px solid #29292e; display: flex; flex-direction: column; justify-content: space-between; }
+    .card .title { font-size: 13px; color: #a8a8b3; margin-bottom: 8px; font-weight: 500; }
+    .card .value { font-size: 20px; font-weight: 700; }
     .green { color: #00b37e; }
     .red { color: #f75a68; }
-    .yellow { color: #fba94c; }
     
-    .section-title { font-size: 18px; margin: 25px 0 15px 0; color: #e1e1e6; border-bottom: 1px solid #29292e; padding-bottom: 8px; }
+    /* Tabela Estilo Mobills */
+    .table-container { background-color: #1e1e24; border-radius: 12px; border: 1px solid #29292e; overflow: hidden; margin-bottom: 30px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { background-color: #26262e; color: #8d8d99; font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 14px 16px; border-bottom: 1px solid #29292e; }
+    td { padding: 14px 16px; border-bottom: 1px solid #29292e; font-size: 14px; color: #c4c4cc; }
+    tr:hover { background-color: #26262e; }
     
-    form { background: #202024; padding: 15px; border-radius: 8px; border: 1px solid #29292e; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-    form input, form select, form button { padding: 10px; border-radius: 6px; border: 1px solid #29292e; background: #121214; color: #fff; font-size: 14px; }
-    form input[type="text"] { flex: 2; min-width: 150px; }
-    form input[type="number"], form input[type="date"] { flex: 1; min-width: 100px; }
-    form select { flex: 1; min-width: 120px; }
-    form button { background: #00b37e; color: #fff; font-weight: bold; border: none; cursor: pointer; flex: 1; min-width: 120px; }
-    form button:hover { background: #00875f; }
+    .status-check { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; }
+    .status-paid { background-color: #00b37e; color: #fff; }
+    .status-pending { background-color: #f75a68; color: #fff; font-weight: bold; }
+    
+    .cat-badge { display: inline-flex; align-items: center; gap: 8px; background: #29292e; padding: 4px 10px; border-radius: 16px; font-size: 12px; color: #e1e1e6; }
+    .cat-icon { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
-    table { width: 100%; border-collapse: collapse; background: #202024; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
-    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #29292e; font-size: 14px; }
-    th { background-color: #29292e; color: #a8a8b3; }
+    .action-btn { background: transparent; border: none; color: #8d8d99; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .action-btn:hover { color: #fff; background: #323238; }
+
+    /* Modal de Edição Padrão Mobills */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
+    .modal { background: #202024; border-radius: 16px; width: 100%; max-width: 420px; padding: 24px; border: 1px solid #323238; box-shadow: 0 10px 25px rgba(0,0,0,0.5); position: relative; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .modal-title { font-size: 18px; font-weight: 600; color: #fff; }
+    .close-modal { background: none; border: none; color: #8d8d99; font-size: 20px; cursor: pointer; }
     
-    .btn-del { background: transparent; border: none; color: #f75a68; cursor: pointer; font-weight: bold; }
-    .btn-del:hover { color: #ff0000; }
+    .amount-input-group { text-align: center; margin-bottom: 20px; }
+    .amount-input { background: transparent; border: none; font-size: 32px; font-weight: bold; text-align: center; width: 100%; outline: none; }
+    
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 12px; color: #8d8d99; margin-bottom: 6px; }
+    .form-control { width: 100%; background: #121214; border: 1px solid #323238; border-radius: 8px; padding: 12px; color: #fff; font-size: 14px; outline: none; }
+    .form-control:focus { border-color: #7c3aed; }
+    
+    .toggle-group { display: flex; justify-content: space-between; align-items: center; background: #121214; padding: 12px; border-radius: 8px; border: 1px solid #323238; margin-bottom: 15px; }
+    .toggle-group span { font-size: 14px; color: #c4c4cc; }
+
+    .btn-save { width: 100%; padding: 14px; border-radius: 25px; border: none; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 10px; }
+    .btn-save-expense { background-color: #f75a68; color: #fff; }
+    .btn-save-income { background-color: #00b37e; color: #fff; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>📱 Dashboard Financeiro App - Nando</h1>
-    
-    <!-- CARDS DE TOTAL -->
-    <div class="grid">
+    <div class="header">
+      <h1>Transações</h1>
+      <button class="btn-add" onclick="openModal()">+ Nova Transação</button>
+    </div>
+
+    <!-- Cards Superiores Mobills -->
+    <div class="grid-cards">
       <div class="card">
-        <h3>Receita Realizada</h3>
-        <div class="value green" id="total-receita">R$ 1.728,00</div>
+        <div class="title">Saldo atual</div>
+        <div class="value green" id="card-saldo">R$ 843,21</div>
       </div>
       <div class="card">
-        <h3>Despesas Realizadas</h3>
-        <div class="value red" id="total-despesas">R$ 884,79</div>
+        <div class="title">Receitas</div>
+        <div class="value green" id="card-receitas">R$ 1.728,00</div>
       </div>
       <div class="card">
-        <h3>Saldo Atual</h3>
-        <div class="value green" id="saldo-total">+ R$ 843,21</div>
+        <div class="title">Despesas</div>
+        <div class="value red" id="card-despesas">R$ 884,79</div>
+      </div>
+      <div class="card">
+        <div class="title">Balanço mensal</div>
+        <div class="value green" id="card-balanco">R$ 843,21</div>
       </div>
     </div>
 
-    <!-- FORMULÁRIO DE NOVO LANÇAMENTO -->
-    <div class="section-title">➕ Novo Lançamento Rápido</div>
-    <form id="finance-form">
-      <input type="date" id="date" required>
-      <input type="text" id="description" placeholder="Descrição (ex: Mercado, Aluno X)" required>
-      <input type="number" step="0.01" id="amount" placeholder="Valor (R$)" required>
-      <select id="type">
-        <option value="expense">Saída (Gasto)</option>
-        <option value="income">Entrada (Receita)</option>
-      </select>
-      <select id="category">
-        <option value="Mercado">Mercado</option>
-        <option value="Panificadora">Panificadora</option>
-        <option value="Transporte">Transporte</option>
-        <option value="Restaurante">Restaurante</option>
-        <option value="Aulas">Aulas/Alunos</option>
-        <option value="Outros">Outros</option>
-      </select>
-      <button type="submit">Lançar</button>
-    </form>
+    <!-- Tabela de Transações -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 50px;">Situação</th>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Conta</th>
+            <th style="text-align: right;">Valor</th>
+            <th style="width: 60px; text-align: center;">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="transaction-table-body">
+          <!-- Renderizado via JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-    <!-- TABELA INTERATIVA -->
-    <div class="section-title">📝 Extrato de Transações Registradas</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Descrição</th>
-          <th>Categoria</th>
-          <th>Valor</th>
-          <th>Ação</th>
-        </tr>
-      </thead>
-      <tbody id="transaction-list">
-        <!-- Lançamentos renderizados via JavaScript -->
-      </tbody>
-    </table>
+  <!-- Modal Estilo Mobills ("Editar / Nova Despesa") -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title-text">Editar Transação</span>
+        <button class="close-modal" onclick="closeModal()">✕</button>
+      </div>
+
+      <input type="hidden" id="edit-id">
+
+      <div class="amount-input-group">
+        <input type="number" step="0.01" class="amount-input red" id="input-amount" placeholder="0,00">
+      </div>
+
+      <div class="toggle-group">
+        <span>Foi paga / recebida</span>
+        <input type="checkbox" id="input-status" checked style="width: 20px; height: 20px;">
+      </div>
+
+      <div class="form-group">
+        <label>Tipo</label>
+        <select class="form-control" id="input-type" onchange="updateModalStyle()">
+          <option value="expense">Despesa</option>
+          <option value="income">Receita</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Data</label>
+        <input type="date" class="form-control" id="input-date">
+      </div>
+
+      <div class="form-group">
+        <label>Descrição</label>
+        <input type="text" class="form-control" id="input-description" placeholder="Ex: Mercado dia dia">
+      </div>
+
+      <div class="form-group">
+        <label>Categoria (Padrão Mobills)</label>
+        <select class="form-control" id="input-category">
+          <option value="Casa > Mercado dia dia">Casa > Mercado dia dia</option>
+          <option value="Casa > Manutenção da casa">Casa > Manutenção da casa</option>
+          <option value="Carro">Carro</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Panificadora / Doces">Panificadora / Doces</option>
+          <option value="Alimentação / Restaurante">Alimentação / Restaurante</option>
+          <option value="Serviços">Serviços</option>
+          <option value="Saúde">Saúde</option>
+          <option value="Telefonia / Internet">Telefonia / Internet</option>
+          <option value="Aulas / Receitas">Aulas / Receitas</option>
+          <option value="Outros">Outros</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Conta</label>
+        <select class="form-control" id="input-account">
+          <option value="Carteira">Carteira</option>
+          <option value="Conta Corrente">Conta Corrente</option>
+        </select>
+      </div>
+
+      <button class="btn-save btn-save-expense" id="btn-save-action" onclick="saveTransaction()">SALVAR</button>
+    </div>
   </div>
 
   <script>
-    // Base inicial com os dados do pente fino
-    const initialTransactions = [
-      { id: 1, date: "2026-10-07", description: "Carne Boa Mm", category: "Mercado", amount: 33.38, type: "expense" },
-      { id: 2, date: "2026-10-07", description: "Oscar Frutas", category: "Mercado", amount: 13.26, type: "expense" },
-      { id: 3, date: "2026-10-06", description: "Mw Veiculos Ltda", category: "Aulas", amount: 350.00, type: "income" },
-      { id: 4, date: "2026-10-06", description: "Ana Clara Dos Reis", category: "Aulas", amount: 210.00, type: "income" },
-      { id: 5, date: "2026-10-06", description: "Fabio Ancai", category: "Aulas", amount: 80.00, type: "income" },
-      { id: 6, date: "2026-10-06", description: "Condor Sítio Cercado", category: "Mercado", amount: 36.35, type: "expense" },
-      { id: 7, date: "2026-10-05", description: "Fabiana de Figueiredo", category: "Aulas", amount: 120.00, type: "income" },
-      { id: 8, date: "2026-10-05", description: "Posto Tijucas", category: "Transporte", amount: 50.00, type: "expense" },
-      { id: 9, date: "2026-10-04", description: "Cícero Paulino", category: "Aulas", amount: 350.00, type: "income" },
-      { id: 10, date: "2026-10-03", description: "Kauan Santos", category: "Aulas", amount: 230.00, type: "income" },
-      { id: 11, date: "2026-10-02", description: "Salete B Ferreira", category: "Aulas", amount: 230.00, type: "income" },
-      { id: 12, date: "2026-10-02", description: "Elaine Cerqueira", category: "Aulas", amount: 118.00, type: "income" },
-      { id: 13, date: "2026-10-02", description: "Meire Daiane", category: "Aulas", amount: 40.00, type: "income" }
+    // Dados fiéis do Pente Fino (01/10 a 07/10) com categorização Mobills
+    const initialData = [
+      { id: 1, status: true, date: "2026-10-07", description: "Carne Boa Mm", category: "Casa > Mercado dia dia", account: "Carteira", amount: 33.38, type: "expense" },
+      { id: 2, status: true, date: "2026-10-07", description: "Oscar Frutas", category: "Casa > Mercado dia dia", account: "Carteira", amount: 13.26, type: "expense" },
+      { id: 3, status: true, date: "2026-10-06", description: "Mw Veiculos Ltda", category: "Aulas / Receitas", account: "Carteira", amount: 350.00, type: "income" },
+      { id: 4, status: true, date: "2026-10-06", description: "Ana Clara Dos Reis", category: "Aulas / Receitas", account: "Carteira", amount: 210.00, type: "income" },
+      { id: 5, status: true, date: "2026-10-06", description: "Fabio Ancai", category: "Aulas / Receitas", account: "Carteira", amount: 80.00, type: "income" },
+      { id: 6, status: true, date: "2026-10-06", description: "Condor Sítio Cercado", category: "Casa > Mercado dia dia", account: "Carteira", amount: 36.35, type: "expense" },
+      { id: 7, status: true, date: "2026-10-05", description: "Fabiana de Figueiredo", category: "Aulas / Receitas", account: "Carteira", amount: 120.00, type: "income" },
+      { id: 8, status: true, date: "2026-10-05", description: "Posto Tijucas", category: "Transporte", account: "Carteira", amount: 50.00, type: "expense" },
+      { id: 9, status: true, date: "2026-10-04", description: "Cícero Paulino", category: "Aulas / Receitas", account: "Carteira", amount: 350.00, type: "income" },
+      { id: 10, status: true, date: "2026-10-03", description: "Kauan Santos", category: "Aulas / Receitas", account: "Carteira", amount: 230.00, type: "income" },
+      { id: 11, status: true, date: "2026-10-02", description: "Salete B Ferreira", category: "Aulas / Receitas", account: "Carteira", amount: 230.00, type: "income" },
+      { id: 12, status: true, date: "2026-10-02", description: "Elaine Cerqueira", category: "Aulas / Receitas", account: "Carteira", amount: 118.00, type: "income" },
+      { id: 13, status: true, date: "2026-10-02", description: "Meire Daiane", category: "Aulas / Receitas", account: "Carteira", amount: 40.00, type: "income" },
+      { id: 14, status: true, date: "2026-10-01", description: "mangueira chuveiro", category: "Casa > Manutenção da casa", account: "Carteira", amount: 9.00, type: "expense" }
     ];
 
-    let transactions = JSON.parse(localStorage.getItem("nando_finances")) || initialTransactions;
+    let db = JSON.parse(localStorage.getItem("mobills_app_db")) || initialData;
 
-    function renderApp() {
-      const list = document.getElementById("transaction-list");
-      list.innerHTML = "";
+    function renderTable() {
+      const tbody = document.getElementById("transaction-table-body");
+      tbody.innerHTML = "";
 
-      let income = 0;
-      let expense = 0;
+      let totalReceitas = 0;
+      let totalDespesas = 0;
 
-      transactions.forEach((item, index) => {
-        if (item.type === "income") income += item.amount;
-        else expense += item.amount;
+      db.forEach((item, index) => {
+        if (item.type === "income" && item.status) totalReceitas += item.amount;
+        if (item.type === "expense" && item.status) totalDespesas += item.amount;
 
-        const row = document.createElement("tr");
-        row.innerHTML = `
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>
+            <div class="status-check ${item.status ? 'status-paid' : 'status-pending'}" onclick="toggleStatus(${index})">
+              ${item.status ? '✓' : '!'}
+            </div>
+          </td>
           <td>${item.date.split('-').reverse().join('/')}</td>
-          <td>${item.description}</td>
-          <td>${item.category}</td>
-          <td class="${item.type === 'income' ? 'green' : 'red'}">R$ ${item.amount.toFixed(2)}</td>
-          <td><button class="btn-del" onclick="deleteTransaction(${index})">❌ Excluir</button></td>
+          <td style="font-weight: 500; color: #fff;">${item.description}</td>
+          <td>
+            <span class="cat-badge">
+              <span class="cat-icon" style="background-color: ${item.type === 'income' ? '#00b37e' : '#0077ff'};"></span>
+              ${item.category}
+            </span>
+          </td>
+          <td>${item.account}</td>
+          <td style="text-align: right; font-weight: bold;" class="${item.type === 'income' ? 'green' : 'red'}">
+            R$ ${item.amount.toFixed(2)}
+          </td>
+          <td style="text-align: center;">
+            <button class="action-btn" onclick="editTransaction(${index})">⋮</button>
+          </td>
         `;
-        list.appendChild(row);
+        tbody.appendChild(tr);
       });
 
-      document.getElementById("total-receita").innerText = `R$ ${income.toFixed(2)}`;
-      document.getElementById("total-despesas").innerText = `R$ ${expense.toFixed(2)}`;
-      
-      const saldo = income - expense;
-      const saldoEl = document.getElementById("saldo-total");
-      saldoEl.innerText = `${saldo >= 0 ? '+' : ''} R$ ${saldo.toFixed(2)}`;
-      saldoEl.className = `value ${saldo >= 0 ? 'green' : 'red'}`;
+      const saldo = totalReceitas - totalDespesas;
+      document.getElementById("card-receitas").innerText = `R$ ${totalReceitas.toFixed(2)}`;
+      document.getElementById("card-despesas").innerText = `R$ ${totalDespesas.toFixed(2)}`;
+      document.getElementById("card-saldo").innerText = `R$ ${saldo.toFixed(2)}`;
+      document.getElementById("card-balanco").innerText = `R$ ${saldo.toFixed(2)}`;
 
-      localStorage.setItem("nando_finances", JSON.stringify(transactions));
+      localStorage.setItem("mobills_app_db", JSON.stringify(db));
     }
 
-    document.getElementById("finance-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const newTransaction = {
-        id: Date.now(),
-        date: document.getElementById("date").value,
-        description: document.getElementById("description").value,
-        amount: parseFloat(document.getElementById("amount").value),
-        type: document.getElementById("type").value,
-        category: document.getElementById("category").value
+    function toggleStatus(index) {
+      db[index].status = !db[index].status;
+      renderTable();
+    }
+
+    function openModal(item = null, index = null) {
+      document.getElementById("modal-overlay").style.display = "flex";
+      
+      if (item !== null && index !== null) {
+        document.getElementById("modal-title-text").innerText = "Editar Transação";
+        document.getElementById("edit-id").value = index;
+        document.getElementById("input-amount").value = item.amount;
+        document.getElementById("input-status").checked = item.status;
+        document.getElementById("input-type").value = item.type;
+        document.getElementById("input-date").value = item.date;
+        document.getElementById("input-description").value = item.description;
+        document.getElementById("input-category").value = item.category;
+        document.getElementById("input-account").value = item.account;
+      } else {
+        document.getElementById("modal-title-text").innerText = "Nova Transação";
+        document.getElementById("edit-id").value = "";
+        document.getElementById("input-amount").value = "";
+        document.getElementById("input-status").checked = true;
+        document.getElementById("input-type").value = "expense";
+        document.getElementById("input-date").value = new Date().toISOString().split('T')[0];
+        document.getElementById("input-description").value = "";
+        document.getElementById("input-category").value = "Casa > Mercado dia dia";
+        document.getElementById("input-account").value = "Carteira";
+      }
+      updateModalStyle();
+    }
+
+    function closeModal() {
+      document.getElementById("modal-overlay").style.display = "none";
+    }
+
+    function updateModalStyle() {
+      const type = document.getElementById("input-type").value;
+      const amountInput = document.getElementById("input-amount");
+      const btnSave = document.getElementById("btn-save-action");
+
+      if (type === "expense") {
+        amountInput.className = "amount-input red";
+        btnSave.className = "btn-save btn-save-expense";
+      } else {
+        amountInput.className = "amount-input green";
+        btnSave.className = "btn-save btn-save-income";
+      }
+    }
+
+    function editTransaction(index) {
+      openModal(db[index], index);
+    }
+
+    function saveTransaction() {
+      const index = document.getElementById("edit-id").value;
+      const transaction = {
+        amount: parseFloat(document.getElementById("input-amount").value) || 0,
+        status: document.getElementById("input-status").checked,
+        type: document.getElementById("input-type").value,
+        date: document.getElementById("input-date").value,
+        description: document.getElementById("input-description").value,
+        category: document.getElementById("input-category").value,
+        account: document.getElementById("input-account").value
       };
 
-      transactions.unshift(newTransaction);
-      renderApp();
-      e.target.reset();
-    });
+      if (index !== "") {
+        db[index] = transaction;
+      } else {
+        db.unshift(transaction);
+      }
 
-    function deleteTransaction(index) {
-      transactions.splice(index, 1);
-      renderApp();
+      closeModal();
+      renderTable();
     }
 
-    // Set data de hoje no formulário
-    document.getElementById("date").valueToDate = new Date();
-    document.getElementById("date").value = new Date().toISOString().split('T')[0];
-
-    renderApp();
+    renderTable();
   </script>
 </body>
 </html>
