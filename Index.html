@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Financeiro - Nando</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+    body { background-color: #121214; color: #e1e1e6; padding: 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    h1 { margin-bottom: 20px; font-size: 24px; color: #fff; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .card { background-color: #202024; border-radius: 8px; padding: 20px; border: 1px solid #29292e; }
+    .card h3 { font-size: 14px; color: #a8a8b3; margin-bottom: 10px; text-transform: uppercase; }
+    .card .value { font-size: 24px; font-weight: bold; }
+    
+    .green { color: #00b37e; }
+    .red { color: #f75a68; }
+    .yellow { color: #fba94c; }
+    
+    .section-title { font-size: 18px; margin: 25px 0 15px 0; color: #e1e1e6; border-bottom: 1px solid #29292e; padding-bottom: 8px; }
+    
+    table { width: 100%; border-collapse: collapse; background: #202024; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #29292e; font-size: 14px; }
+    th { background-color: #29292e; color: #a8a8b3; }
+    
+    .tag { padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+    .tag-paid { background-color: rgba(0, 179, 126, 0.2); color: #00b37e; }
+    .tag-pending { background-color: rgba(251, 169, 76, 0.2); color: #fba94c; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Painel de Controle Financeiro (Local)</h1>
+    
+    <!-- TETOS SEMANAIS -->
+    <div class="section-title">🎯 Tetos de Gastos Semanais</div>
+    <div class="grid">
+      <div class="card">
+        <h3>Panificadora / Mercado Bairro</h3>
+        <div class="value yellow">R$ 200,00 <span style="font-size: 14px;">/semana</span></div>
+        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Gasto real (01 a 03/10): R$ 81,11</p>
+      </div>
+      <div class="card">
+        <h3>Gasolina / Transporte</h3>
+        <div class="value yellow">R$ 150,00 <span style="font-size: 14px;">/semana</span></div>
+        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Gasto real (01 a 03/10): R$ 53,99</p>
+      </div>
+      <div class="card">
+        <h3>Lanches / Restaurante</h3>
+        <div class="value yellow">R$ 35,00 <span style="font-size: 14px;">/semana</span></div>
+        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Gasto real (01 a 03/10): R$ 48,00</p>
+      </div>
+    </div>
+
+    <!-- RESUMO OUTUBRO -->
+    <div class="section-title">🗓️ Posição de Outubro/2026 (Até Dia 03)</div>
+    <div class="grid">
+      <div class="card">
+        <h3>Receita Prevista</h3>
+        <div class="value green">R$ 4.228,00</div>
+        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Recebido: R$ 578,00</p>
+      </div>
+      <div class="card">
+        <h3>Despesas Realizadas (Pagas)</h3>
+        <div class="value red">R$ 225,04</div>
+        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Pendentes lançadas: R$ 1.636,54</p>
+      </div>
+      <div class="card">
+        <h3>Saldo Atual Caixa</h3>
+        <div class="value green">+ R$ 352,96</div>
+        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Entradas (578) - Saídas (225,04)</p>
+      </div>
+    </div>
+
+    <!-- ULTIMAS DESPESAS PAGAS -->
+    <div class="section-title">💸 Gastos Efetuados em Outubro (01/10 a 03/10)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Categoria</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>03/10</td><td>Gasolina</td><td>Transporte</td><td>R$ 53,99</td></tr>
+        <tr><td>03/10</td><td>Espetinho</td><td>Restaurante</td><td>R$ 48,00</td></tr>
+        <tr><td>03/10</td><td>Pani</td><td>Panificadora</td><td>R$ 14,95</td></tr>
+        <tr><td>03/10</td><td>Mercado dia a dia</td><td>Mercado</td><td>R$ 4,99</td></tr>
+        <tr><td>02/10</td><td>Planeta Doces</td><td>Doces/Pani</td><td>R$ 39,94</td></tr>
+        <tr><td>02/10</td><td>Pani</td><td>Panificadora</td><td>R$ 32,40</td></tr>
+        <tr><td>02/10</td><td>Mercado dia a dia</td><td>Mercado</td><td>R$ 6,79</td></tr>
+        <tr><td>01/10</td><td>Mercado dia a dia</td><td>Mercado</td><td>R$ 14,98</td></tr>
+        <tr><td>01/10</td><td>Mangueira chuveiro</td><td>Manutenção Casa</td><td>R$ 9,00</td></tr>
+      </tbody>
+    </table>
+
+    <!-- PROJEÇÃO CARRO NOVO (NOVEMBRO) -->
+    <div class="section-title">🚗 Impacto no Orçamento (Novembro/2026 - Novo Carro)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Item / Despesa</th>
+          <th>Vencimento</th>
+          <th>Valor (R$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Nova Parcela Veículo (1/60)</td><td>20/11/2026</td><td class="red">R$ 1.167,24</td></tr>
+        <tr><td>Transferência do Carro (2/6)</td><td>15/11/2026</td><td class="red">R$ 205,00</td></tr>
+        <tr><td>Contas Fixas (Luz, Água, Net, Tim)</td><td>Div. Datas</td><td class="red">R$ 353,44</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Financeiro & Chat Iara</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: sans-serif; }
+        .card { background-color: #1e293b; border-radius: 0.75rem; padding: 1.25rem; border: 1px solid #334155; }
+        
+        #iara-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+        }
+        .chat-box { height: 260px; overflow-y: auto; }
+        .mic-active { animation: pulse 1s infinite; color: #ef4444 !important; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* Estilo do Interruptor (Toggle Switch) */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 20px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #475569; transition: .3s; border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px;
+            background-color: white; transition: .3s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: #10b981; }
+        input:checked + .slider:before { transform: translateX(16px); }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-6xl mx-auto space-y-6">
+
+    <!-- CABEÇALHO -->
+    <header class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-slate-800 pb-4 gap-4">
+        <div>
+            <div class="flex items-center gap-3">
+                <h1 class="text-2xl font-bold text-emerald-400">Dashboard Financeiro</h1>
+                <span id="statusConexao" class="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-semibold">🟡 Conectando...</span>
+            </div>
+            
+            <div class="flex items-center gap-2 mt-1">
+                <button onclick="mudarMes(-1)" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 px-2 py-0.5 rounded font-bold border border-slate-700 text-xs transition">◀</button>
+                <span id="labelMesAno" class="text-xs font-semibold text-slate-300 uppercase tracking-wide min-w-[120px] text-center">Carregando...</span>
+                <button onclick="mudarMes(1)" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 px-2 py-0.5 rounded font-bold border border-slate-700 text-xs transition">▶</button>
+            </div>
+        </div>
+
+        <div class="flex gap-2">
+            <button onclick="abrirModalPendencias()" class="bg-amber-600/80 hover:bg-amber-600 text-white font-semibold py-2 px-3 rounded-lg text-xs transition flex items-center gap-1">
+                <span>⏳</span> Pendências
+            </button>
+            <button onclick="adicionarNovoGastoManual()" class="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2 px-3 rounded-lg text-xs transition">
+                + Nova Despesa
+            </button>
+            <button onclick="abrirModalEntradas()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-4 rounded-lg text-sm transition">
+                + Entradas / Receitas
+            </button>
+        </div>
+    </header>
+
+    <!-- CARDS DE RESUMO (TODOS CLICÁVEIS) -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="card border-l-4 border-l-emerald-500 cursor-pointer hover:bg-slate-800/80 transition" onclick="abrirModalEntradas()" title="Clique para ver todas as entradas">
+            <div class="flex justify-between items-center">
+                <p class="text-xs text-slate-400 uppercase font-bold">Total Recebido</p>
+                <span class="text-xs">👁️</span>
+            </div>
+            <p id="totalReceita" class="text-xl font-extrabold text-emerald-400 mt-1">R$ 0,00</p>
+        </div>
+        <div class="card border-l-4 border-l-rose-500 cursor-pointer hover:bg-slate-800/80 transition" onclick="abrirModalTodasDespesas()" title="Clique para ver todas as despesas">
+            <div class="flex justify-between items-center">
+                <p class="text-xs text-slate-400 uppercase font-bold">Total Despesas</p>
+                <span class="text-xs">👁️</span>
+            </div>
+            <p id="totalDespesa" class="text-xl font-extrabold text-rose-400 mt-1">R$ 0,00</p>
+        </div>
+        <div class="card border-l-4 border-l-amber-500 cursor-pointer hover:bg-slate-800/80 transition" onclick="abrirModalPendencias()" title="Clique para ver pendências">
+            <div class="flex justify-between items-center">
+                <p class="text-xs text-slate-400 uppercase font-bold">Total Pendente</p>
+                <span class="text-xs">⏳</span>
+            </div>
+            <p id="totalPendente" class="text-xl font-extrabold text-amber-400 mt-1">R$ 0,00</p>
+        </div>
+        <div class="card border-l-4 border-l-sky-500 cursor-pointer hover:bg-slate-800/80 transition" onclick="abrirModalExtratoGeral()" title="Clique para ver o extrato completo">
+            <div class="flex justify-between items-center">
+                <p class="text-xs text-slate-400 uppercase font-bold">Saldo Pago</p>
+                <span class="text-xs">📊</span>
+            </div>
+            <p id="saldoMes" class="text-xl font-extrabold text-sky-400 mt-1">R$ 0,00</p>
+        </div>
+    </div>
+
+    <!-- PAINEL DE CATEGORIAS -->
+    <main class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card">
+            <div class="flex justify-between items-center mb-3 border-b border-slate-700 pb-2">
+                <h2 class="text-lg font-bold text-amber-400">🛒 Sobrevivência</h2>
+                <button onclick="abrirModalDetalhesCategoria('sobrevivencia')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs px-2 py-1 rounded border border-slate-700 font-semibold">🔍 Detalhes</button>
+            </div>
+            <div id="listaSobrevivencia" class="space-y-3 text-sm"></div>
+            <div class="mt-4 pt-3 border-t border-slate-700 flex justify-between font-bold">
+                <span>Subtotal:</span>
+                <span id="subSobrevivencia" class="text-amber-400">R$ 0,00</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="flex justify-between items-center mb-3 border-b border-slate-700 pb-2">
+                <h2 class="text-lg font-bold text-blue-400">🚗 Carro & Transporte</h2>
+                <button onclick="abrirModalDetalhesCategoria('carro')" class="bg-slate-800 hover:bg-slate-700 text-blue-400 text-xs px-2 py-1 rounded border border-slate-700 font-semibold">🔍 Detalhes</button>
+            </div>
+            <div id="listaCarro" class="space-y-3 text-sm"></div>
+            <div class="mt-4 pt-3 border-t border-slate-700 flex justify-between font-bold">
+                <span>Subtotal:</span>
+                <span id="subCarro" class="text-blue-400">R$ 0,00</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="flex justify-between items-center mb-3 border-b border-slate-700 pb-2">
+                <h2 class="text-lg font-bold text-purple-400">🏡 Fixas & Outros</h2>
+                <button onclick="abrirModalDetalhesCategoria('fixas')" class="bg-slate-800 hover:bg-slate-700 text-purple-400 text-xs px-2 py-1 rounded border border-slate-700 font-semibold">🔍 Detalhes</button>
+            </div>
+            <div id="listaFixas" class="space-y-3 text-sm"></div>
+            <div class="mt-4 pt-3 border-t border-slate-700 flex justify-between font-bold">
+                <span>Subtotal:</span>
+                <span id="subFixas" class="text-purple-400">R$ 0,00</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- WIDGET FLUTUANTE DA IARA -->
+    <div id="iara-widget" class="flex flex-col items-end">
+        <div id="iaraChatWindow" class="w-80 md:w-96 bg-slate-800 border border-emerald-500/40 rounded-xl shadow-2xl overflow-hidden mb-2 transition-all">
+            <div class="bg-slate-900 p-3 flex justify-between items-center border-b border-slate-700">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                    <h3 class="font-bold text-emerald-400 text-sm">Iara - Assistente</h3>
+                </div>
+                <button onclick="toggleIaraChat()" class="text-slate-400 hover:text-white font-bold text-xs bg-slate-800 px-2 py-1 rounded">— Minimizar</button>
+            </div>
+
+            <div id="chatHistorico" class="chat-box p-3 space-y-3 bg-slate-900/90 text-xs">
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700">
+                    <p class="font-semibold text-emerald-400 mb-1">Iara:</p>
+                    <p class="text-slate-300">Cole sua lista aqui! Ela pode conter entradas ou saídas que irei processar item por item.</p>
+                </div>
+            </div>
+
+            <div class="p-2 bg-slate-900 border-t border-slate-700 flex gap-1.5 items-center">
+                <button id="btnMic" onclick="iniciarVoz()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg text-xs border border-slate-700">🎤</button>
+                <textarea id="chatInput" placeholder="Cole sua lista ou digite..." 
+                          class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-100 focus:outline-none focus:border-emerald-500 resize-none h-9"
+                          onkeydown="if(event.key === 'Enter' && !event.shiftKey){ event.preventDefault(); enviarMensagemIara(); }"></textarea>
+                <button onclick="enviarMensagemIara()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition">Enviar</button>
+            </div>
+        </div>
+
+        <button id="iaraBubble" onclick="toggleIaraChat()" class="hidden bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-full shadow-lg flex items-center gap-2 text-sm transition">🤖 Conversar com a Iara</button>
+    </div>
+
+    <!-- MODAL CATEGORIA -->
+    <div id="modalCategoria" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden p-4 z-50">
+        <div class="bg-slate-800 rounded-xl max-w-lg w-full p-6 border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 id="modalCategoriaTitulo" class="text-lg font-bold text-emerald-400">Detalhamento</h3>
+                <button onclick="fecharModalCategoria()" class="text-slate-400 hover:text-white font-bold">✕</button>
+            </div>
+            <div id="modalCategoriaLista" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
+            <button onclick="fecharModalCategoria()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2 rounded-lg text-xs">Fechar</button>
+        </div>
+    </div>
+
+    <!-- MODAL TODAS AS DESPESAS -->
+    <div id="modalTodasDespesas" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden p-4 z-50">
+        <div class="bg-slate-800 rounded-xl max-w-lg w-full p-6 border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 class="text-lg font-bold text-rose-400">Todas as Despesas do Mês</h3>
+                <button onclick="fecharModalTodasDespesas()" class="text-slate-400 hover:text-white font-bold">✕</button>
+            </div>
+            <div id="listaTodasDespesasModal" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
+            <button onclick="fecharModalTodasDespesas()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2 rounded-lg text-xs">Fechar</button>
+        </div>
+    </div>
+
+    <!-- MODAL ENTRADAS -->
+    <div id="modalEntradas" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden p-4 z-50">
+        <div class="bg-slate-800 rounded-xl max-w-lg w-full p-6 border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 class="text-lg font-bold text-emerald-400">Detalhamento das Entradas</h3>
+                <button onclick="fecharModalEntradas()" class="text-slate-400 hover:text-white font-bold">✕</button>
+            </div>
+            <div id="listaEntradasModal" class="space-y-3 max-h-60 overflow-y-auto pr-2"></div>
+            <button onclick="adicionarNovaEntradaManual()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 rounded-lg text-xs">+ Adicionar Nova Entrada</button>
+            <button onclick="fecharModalEntradas()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2 rounded-lg text-xs">Fechar</button>
+        </div>
+    </div>
+
+    <!-- MODAL PENDÊNCIAS -->
+    <div id="modalPendencias" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden p-4 z-50">
+        <div class="bg-slate-800 rounded-xl max-w-lg w-full p-6 border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 class="text-lg font-bold text-amber-400">⏳ Lançamentos Pendentes</h3>
+                <button onclick="fecharModalPendencias()" class="text-slate-400 hover:text-white font-bold">✕</button>
+            </div>
+            <div id="listaPendenciasModal" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
+            <button onclick="fecharModalPendencias()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2 rounded-lg text-xs">Fechar</button>
+        </div>
+    </div>
+
+    <!-- MODAL EDIÇÃO RÁPIDA DE ITEM COM REPETIÇÃO E APRENDIZADO -->
+    <div id="modalEdicaoItem" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden p-4 z-50">
+        <div class="bg-slate-800 rounded-xl max-w-md w-full p-6 border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 class="text-lg font-bold text-emerald-400">Editar Lançamento</h3>
+                <button onclick="fecharModalEdicao()" class="text-slate-400 hover:text-white font-bold">✕</button>
+            </div>
+            <input type="hidden" id="editItemId">
+            <input type="hidden" id="editItemTipo">
+            
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="text-slate-400 font-semibold block mb-1">Descrição:</label>
+                    <input type="text" id="editItemDesc" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-slate-100 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="text-slate-400 font-semibold block mb-1">Valor (R$):</label>
+                    <input type="number" step="0.01" id="editItemVal" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-slate-100 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="text-slate-400 font-semibold block mb-1">Data (DD/MM/AAAA):</label>
+                    <input type="text" id="editItemData" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-slate-100 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div id="boxEditCategoria">
+                    <label class="text-slate-400 font-semibold block mb-1">Categoria:</label>
+                    <select id="editItemCat" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-slate-100 focus:outline-none focus:border-emerald-500">
+                        <option value="sobrevivencia">Sobrevivência</option>
+                        <option value="carro">Carro & Transporte</option>
+                        <option value="fixas">Fixas & Outros</option>
+                    </select>
+                </div>
+
+                <!-- RECORRÊNCIA / REPETIÇÃO -->
+                <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-700">
+                    <div>
+                        <label class="text-slate-400 font-semibold block mb-1">Repete-se:</label>
+                        <select id="editItemFreq" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-slate-100 focus:outline-none focus:border-emerald-500">
+                            <option value="nenhuma">Não repete</option>
+                            <option value="mensal">A cada Mês</option>
+                            <option value="anual">A cada Ano</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-slate-400 font-semibold block mb-1">Qtd. Vezes:</label>
+                        <input type="number" id="editItemQtdRep" value="1" min="1" max="60" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-slate-100 focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-2 border-t border-slate-700">
+                    <span class="text-slate-300 font-semibold">Status do Pagamento:</span>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <span id="labelEditStatus" class="text-xs font-bold text-amber-400">Pendente</span>
+                        <label class="switch">
+                            <input type="checkbox" id="editItemPago" onchange="atualizarLabelStatusEdit(this.checked)">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button onclick="salvarEdicaoItem()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 rounded-lg text-xs">Salvar Alterações</button>
+                <button onclick="excluirItemEmEdicao()" class="bg-rose-600/80 hover:bg-rose-600 text-white font-semibold px-3 py-2 rounded-lg text-xs">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        /* CONFIGURAÇÃO FIREBASE */
+        const firebaseConfig = {
+            databaseURL: "https://meu-dashboard-4590d-default-rtdb.firebaseio.com"
+        };
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
+
+        let mesAtual = 8;
+        let anoAtual = 2026;
+        let bancoMeses = {};
+        let mapaCategorias = {}; // Aprendizado de categorias
+        let categoriaModalAberta = '';
+        let bancoCarregadoDoFirebase = false;
+
+        const nomesMeses = [
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        ];
+
+        function getChaveMes(m, a) {
+            const mStr = String(m).padStart(2, '0');
+            return `${a}_${mStr}`;
+        }
+
+        function getDataHojeFormatted() {
+            const hoje = new Date();
+            const dia = String(hoje.getDate()).padStart(2, '0');
+            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            const ano = hoje.getFullYear();
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        function fmt(val) {
+            return (val || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function atualizarHeaderMes() {
+            document.getElementById('labelMesAno').innerText = `${nomesMeses[mesAtual - 1]} ${anoAtual}`;
+        }
+
+        function mudarMes(delta) {
+            mesAtual += delta;
+            if (mesAtual > 12) { mesAtual = 1; anoAtual++; } 
+            else if (mesAtual < 1) { mesAtual = 12; anoAtual--; }
+            atualizarHeaderMes();
+            atualizarInterface();
+        }
+
+        function salvarNoFirebase() {
+            if (!bancoCarregadoDoFirebase) return;
+            db.ref('dados_dashboard_meses').set(bancoMeses);
+            db.ref('mapa_categorias_aprendidas').set(mapaCategorias);
+        }
+
+        function getDadosMesCorrente() {
+            const chave = getChaveMes(mesAtual, anoAtual);
+            if (!bancoMeses[chave]) {
+                bancoMeses[chave] = { entradas: [], gastos: [] };
+            }
+            return bancoMeses[chave];
+        }
+
+        function toggleStatusPago(id, tipo, event) {
+            if (event) event.stopPropagation();
+            const dados = getDadosMesCorrente();
+            const lista = tipo === 'gasto' ? dados.gastos : dados.entradas;
+            const item = (lista || []).find(x => x.id === id);
+            if (item) {
+                item.pago = item.pago !== undefined ? !item.pago : false;
+                salvarNoFirebase();
+                atualizarInterface();
+            }
+        }
+
+        function atualizarInterface() {
+            atualizarHeaderMes();
+            const dados = getDadosMesCorrente();
+            const entradasLista = dados.entradas || [];
+            const historicoGastos = dados.gastos || [];
+
+            const totalEntradas = entradasLista.reduce((acc, item) => acc + (item.val || 0), 0);
+            const totalSaidas = historicoGastos.reduce((acc, item) => acc + (item.val || 0), 0);
+            
+            const gastosPendentes = historicoGastos.filter(x => x.pago === false).reduce((acc, item) => acc + (item.val || 0), 0);
+            const entradasPendentes = entradasLista.filter(x => x.pago === false).reduce((acc, item) => acc + (item.val || 0), 0);
+            const totalPendente = gastosPendentes + entradasPendentes;
+
+            const entradasPagas = entradasLista.filter(x => x.pago !== false).reduce((acc, item) => acc + (item.val || 0), 0);
+            const gastosPagos = historicoGastos.filter(x => x.pago !== false).reduce((acc, item) => acc + (item.val || 0), 0);
+            const saldoPAGO = entradasPagas - gastosPagos;
+
+            document.getElementById('totalReceita').innerText = fmt(totalEntradas);
+            document.getElementById('totalDespesa').innerText = fmt(totalSaidas);
+            document.getElementById('totalPendente').innerText = fmt(totalPendente);
+            document.getElementById('saldoMes').innerText = fmt(saldoPAGO);
+
+            renderizarCategoria('sobrevivencia', 'listaSobrevivencia', 'subSobrevivencia', historicoGastos);
+            renderizarCategoria('carro', 'listaCarro', 'subCarro', historicoGastos);
+            renderizarCategoria('fixas', 'listaFixas', 'subFixas', historicoGastos);
+            renderizarModalEntradas(entradasLista);
+            renderizarModalTodasDespesas(historicoGastos);
+            renderizarModalPendencias(entradasLista, historicoGastos);
+
+            if (categoriaModalAberta) {
+                renderizarModalCategoriaConteudo(categoriaModalAberta);
+            }
+        }
+
+        function renderizarCategoria(catName, containerId, subtotalId, gastos) {
+            const container = document.getElementById(containerId);
+            const itens = gastos.filter(item => item.cat === catName);
+            const subtotal = itens.reduce((acc, item) => acc + item.val, 0);
+
+            document.getElementById(subtotalId).innerText = fmt(subtotal);
+            
+            if (itens.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 italic py-1">Nenhum lançamento neste mês.</p>`;
+                return;
+            }
+
+            container.innerHTML = itens.slice(0, 4).map(item => `
+                <div class="bg-slate-900/60 p-2.5 rounded border border-slate-800 flex justify-between items-center hover:border-slate-600 transition group cursor-pointer" onclick="abrirModalEdicao(${item.id}, 'gasto')">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-1.5">
+                            <p class="font-medium text-slate-200 group-hover:text-emerald-400 transition">${item.desc}</p>
+                            ${item.pago === false ? '<span class="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1 rounded">Pendente</span>' : ''}
+                        </div>
+                        <p class="text-[10px] text-slate-400">📅 ${item.data || 'Data N/I'} | ${item.sub || 'Geral'}</p>
+                    </div>
+                    <div class="flex items-center gap-2" onclick="event.stopPropagation()">
+                        <span class="font-bold text-slate-300 text-xs">${fmt(item.val)}</span>
+                        <label class="switch">
+                            <input type="checkbox" ${item.pago !== false ? 'checked' : ''} onchange="toggleStatusPago(${item.id}, 'gasto', event)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            `).join('') + (itens.length > 4 ? `<p class="text-[11px] text-emerald-400 text-center font-bold cursor-pointer pt-1" onclick="abrirModalDetalhesCategoria('${catName}')">+ Ver todos os ${itens.length} itens</p>` : '');
+        }
+
+        /* --- MODAIS DE VISUALIZAÇÃO --- */
+        function abrirModalDetalhesCategoria(catName) {
+            categoriaModalAberta = catName;
+            const nomes = { 'sobrevivencia': '🛒 Sobrevivência', 'carro': '🚗 Carro & Transporte', 'fixas': '🏡 Fixas & Outros' };
+            document.getElementById('modalCategoriaTitulo').innerText = `Lançamentos - ${nomes[catName]}`;
+            renderizarModalCategoriaConteudo(catName);
+            document.getElementById('modalCategoria').classList.remove('hidden');
+        }
+
+        function renderizarModalCategoriaConteudo(catName) {
+            const container = document.getElementById('modalCategoriaLista');
+            const dados = getDadosMesCorrente();
+            const itens = (dados.gastos || []).filter(item => item.cat === catName);
+
+            if (itens.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic py-2">Nenhum item cadastrado nesta categoria.</p>`;
+                return;
+            }
+
+            container.innerHTML = itens.map(item => `
+                <div class="bg-slate-900/60 p-3 rounded border border-slate-700 flex justify-between items-center cursor-pointer hover:border-slate-500 transition" onclick="abrirModalEdicao(${item.id}, 'gasto')">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <p class="font-medium text-slate-200 hover:text-emerald-400 transition">${item.desc}</p>
+                            ${item.pago === false ? '<span class="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1 rounded">Pendente</span>' : ''}
+                        </div>
+                        <p class="text-[10px] text-slate-400">📅 ${item.data || 'Data N/I'}</p>
+                    </div>
+                    <div class="flex items-center gap-2" onclick="event.stopPropagation()">
+                        <span class="font-bold text-emerald-400">${fmt(item.val)}</span>
+                        <label class="switch">
+                            <input type="checkbox" ${item.pago !== false ? 'checked' : ''} onchange="toggleStatusPago(${item.id}, 'gasto', event)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function fecharModalCategoria() {
+            categoriaModalAberta = '';
+            document.getElementById('modalCategoria').classList.add('hidden');
+        }
+
+        function abrirModalTodasDespesas() { document.getElementById('modalTodasDespesas').classList.remove('hidden'); }
+        function fecharModalTodasDespesas() { document.getElementById('modalTodasDespesas').classList.add('hidden'); }
+
+        function renderizarModalTodasDespesas(gastos) {
+            const container = document.getElementById('listaTodasDespesasModal');
+            if (gastos.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic py-2">Nenhuma despesa lançada para este mês.</p>`;
+                return;
+            }
+            container.innerHTML = gastos.map(item => `
+                <div class="bg-slate-900/60 p-3 rounded border border-slate-700 flex justify-between items-center cursor-pointer hover:border-slate-500 transition" onclick="abrirModalEdicao(${item.id}, 'gasto')">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <p class="font-medium text-slate-200 hover:text-rose-400 transition">${item.desc}</p>
+                            ${item.pago === false ? '<span class="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1 rounded">Pendente</span>' : ''}
+                        </div>
+                        <p class="text-[10px] text-slate-400">📅 ${item.data || 'Data N/I'} | Cat: ${item.cat}</p>
+                    </div>
+                    <div class="flex items-center gap-2" onclick="event.stopPropagation()">
+                        <span class="font-bold text-rose-400">${fmt(item.val)}</span>
+                        <label class="switch">
+                            <input type="checkbox" ${item.pago !== false ? 'checked' : ''} onchange="toggleStatusPago(${item.id}, 'gasto', event)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderizarModalEntradas(entradas) {
+            const container = document.getElementById('listaEntradasModal');
+            if (entradas.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic py-2">Nenhuma receita lançada para este mês.</p>`;
+                return;
+            }
+            container.innerHTML = entradas.map(item => `
+                <div class="bg-slate-900/60 p-3 rounded border border-slate-700 flex justify-between items-center cursor-pointer hover:border-slate-500 transition" onclick="abrirModalEdicao(${item.id}, 'entrada')">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <p class="font-medium text-slate-200 hover:text-emerald-400 transition">${item.desc}</p>
+                            ${item.pago === false ? '<span class="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1 rounded">Pendente</span>' : ''}
+                        </div>
+                        <p class="text-[10px] text-slate-400">📅 ${item.data || 'Data N/I'}</p>
+                    </div>
+                    <div class="flex items-center gap-2" onclick="event.stopPropagation()">
+                        <span class="font-bold text-emerald-400">${fmt(item.val)}</span>
+                        <label class="switch">
+                            <input type="checkbox" ${item.pago !== false ? 'checked' : ''} onchange="toggleStatusPago(${item.id}, 'entrada', event)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* --- MODAL PENDÊNCIAS --- */
+        function abrirModalPendencias() { document.getElementById('modalPendencias').classList.remove('hidden'); }
+        function fecharModalPendencias() { document.getElementById('modalPendencias').classList.add('hidden'); }
+
+        function renderizarModalPendencias(entradas, gastos) {
+            const container = document.getElementById('listaPendenciasModal');
+            const ePend = entradas.filter(x => x.pago === false).map(x => ({ ...x, tipo: 'entrada' }));
+            const gPend = gastos.filter(x => x.pago === false).map(x => ({ ...x, tipo: 'gasto' }));
+            const todasPendencias = [...ePend, ...gPend];
+
+            if (todasPendencias.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic py-2">🎉 Nenhuma pendência para este mês!</p>`;
+                return;
+            }
+
+            container.innerHTML = todasPendencias.map(item => `
+                <div class="bg-slate-900/60 p-3 rounded border border-amber-500/30 flex justify-between items-center cursor-pointer hover:border-amber-400 transition" onclick="abrirModalEdicao(${item.id}, '${item.tipo}')">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold ${item.tipo === 'entrada' ? 'text-emerald-400' : 'text-rose-400'}">[${item.tipo === 'entrada' ? 'RECEITA' : 'DESPESA'}]</span>
+                            <p class="font-medium text-slate-200">${item.desc}</p>
+                        </div>
+                        <p class="text-[10px] text-slate-400">📅 ${item.data || 'Data N/I'}</p>
+                    </div>
+                    <div class="flex items-center gap-2" onclick="event.stopPropagation()">
+                        <span class="font-bold ${item.tipo === 'entrada' ? 'text-emerald-400' : 'text-rose-400'}">${fmt(item.val)}</span>
+                        <label class="switch">
+                            <input type="checkbox" onchange="toggleStatusPago(${item.id}, '${item.tipo}', event)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function abrirModalExtratoGeral() { abrirModalTodasDespesas(); }
+
+        /* --- MODAL DE EDIÇÃO DIRETA --- */
+        function abrirModalEdicao(id, tipo) {
+            const dados = getDadosMesCorrente();
+            const lista = tipo === 'gasto' ? dados.gastos : dados.entradas;
+            const item = (lista || []).find(x => x.id === id);
+            if (!item) return;
+
+            document.getElementById('editItemId').value = id;
+            document.getElementById('editItemTipo').value = tipo;
+            document.getElementById('editItemDesc').value = item.desc;
+            document.getElementById('editItemVal').value = item.val;
+            document.getElementById('editItemData').value = item.data || getDataHojeFormatted();
+
+            document.getElementById('editItemFreq').value = item.freq || 'nenhuma';
+            document.getElementById('editItemQtdRep').value = item.qtdRep || 1;
+
+            const isPago = item.pago !== false;
+            document.getElementById('editItemPago').checked = isPago;
+            atualizarLabelStatusEdit(isPago);
+
+            const boxCat = document.getElementById('boxEditCategoria');
+            if (tipo === 'gasto') {
+                boxCat.classList.remove('hidden');
+                document.getElementById('editItemCat').value = item.cat || 'sobrevivencia';
+            } else {
+                boxCat.classList.add('hidden');
+            }
+
+            document.getElementById('modalEdicaoItem').classList.remove('hidden');
+        }
+
+        function atualizarLabelStatusEdit(checked) {
+            const lbl = document.getElementById('labelEditStatus');
+            if (checked) {
+                lbl.innerText = "Pago / Efetivado";
+                lbl.className = "text-xs font-bold text-emerald-400";
+            } else {
+                lbl.innerText = "Pendente";
+                lbl.className = "text-xs font-bold text-amber-400";
+            }
+        }
+
+        function fecharModalEdicao() {
+            document.getElementById('modalEdicaoItem').classList.add('hidden');
+        }
+
+        function salvarEdicaoItem() {
+            const id = parseInt(document.getElementById('editItemId').value, 10);
+            const tipo = document.getElementById('editItemTipo').value;
+            const desc = document.getElementById('editItemDesc').value.trim();
+            const val = parseFloat(document.getElementById('editItemVal').value);
+            const data = document.getElementById('editItemData').value.trim();
+            const cat = document.getElementById('editItemCat').value;
+            const freq = document.getElementById('editItemFreq').value;
+            const qtdRep = parseInt(document.getElementById('editItemQtdRep').value, 10) || 1;
+            const pago = document.getElementById('editItemPago').checked;
+
+            if (!desc || isNaN(val)) {
+                alert("Por favor, informe uma descrição e valor válidos.");
+                return;
+            }
+
+            const dados = getDadosMesCorrente();
+            const lista = tipo === 'gasto' ? dados.gastos : dados.entradas;
+            const item = (lista || []).find(x => x.id === id);
+
+            if (item) {
+                item.desc = desc;
+                item.val = val;
+                item.data = data;
+                item.pago = pago;
+                item.freq = freq;
+                item.qtdRep = qtdRep;
+                
+                if (tipo === 'gasto') {
+                    item.cat = cat;
+                    // Guarda o aprendizado da palavra-chave para a categoria
+                    mapaCategorias[desc.toLowerCase()] = cat;
+                }
+
+                // Processa a Repetição/Recorrência para meses futuros
+                if (freq !== 'nenhuma' && qtdRep > 1) {
+                    processarRecorrenciaFutura(item, tipo, freq, qtdRep);
+                }
+
+                salvarNoFirebase();
+                atualizarInterface();
+                fecharModalEdicao();
+            }
+        }
+
+        function processarRecorrenciaFutura(itemOriginal, tipo, freq, qtdRep) {
+            const partes = (itemOriginal.data || getDataHojeFormatted()).split('/');
+            let d = parseInt(partes[0], 10) || 1;
+            let m = parseInt(partes[1], 10) || mesAtual;
+            let a = parseInt(partes[2], 10) || anoAtual;
+
+            for (let i = 1; i < qtdRep; i++) {
+                if (freq === 'mensal') {
+                    m++;
+                    if (m > 12) { m = 1; a++; }
+                } else if (freq === 'anual') {
+                    a++;
+                }
+
+                const novaData = `${String(d).padStart(2, '0')}/${String(m).padStart(2, '0')}/${a}`;
+                const chave = getChaveMes(m, a);
+
+                if (!bancoMeses[chave]) bancoMeses[chave] = { entradas: [], gastos: [] };
+
+                const copiaItem = {
+                    ...itemOriginal,
+                    id: Date.now() + Math.floor(Math.random() * 100000),
+                    data: novaData,
+                    pago: false // Futuros começam pendentes
+                };
+
+                if (tipo === 'gasto') {
+                    bancoMeses[chave].gastos.push(copiaItem);
+                } else {
+                    bancoMeses[chave].entradas.push(copiaItem);
+                }
+            }
+        }
+
+        function excluirItemEmEdicao() {
+            const id = parseInt(document.getElementById('editItemId').value, 10);
+            const tipo = document.getElementById('editItemTipo').value;
+
+            if (confirm("Deseja realmente apagar este lançamento?")) {
+                const dados = getDadosMesCorrente();
+                if (tipo === 'gasto') {
+                    dados.gastos = (dados.gastos || []).filter(x => x.id !== id);
+                } else {
+                    dados.entradas = (dados.entradas || []).filter(x => x.id !== id);
+                }
+
+                salvarNoFirebase();
+                atualizarInterface();
+                fecharModalEdicao();
+            }
+        }
+
+        /* --- MANUAIS --- */
+        function adicionarNovoGastoManual() {
+            const desc = prompt("Descrição da despesa:");
+            if (!desc) return;
+            const valStr = prompt("Valor (R$):");
+            if (!valStr) return;
+            const dataInput = prompt("Data do Lançamento (DD/MM/AAAA):", getDataHojeFormatted()) || getDataHojeFormatted();
+            const val = parseFloat(valStr.replace(',', '.'));
+            if (isNaN(val)) return;
+
+            let cat = mapaCategorias[desc.toLowerCase()] || 'sobrevivencia';
+
+            adicionarItemNoMesCorreto(cat, 'Manual', desc, val, dataInput, 'gasto', true);
+        }
+
+        function adicionarNovaEntradaManual() {
+            const desc = prompt("Descrição da Entrada:");
+            if (!desc) return;
+            const valStr = prompt("Valor (R$):");
+            if (!valStr) return;
+            const dataInput = prompt("Data do Lançamento (DD/MM/AAAA):", getDataHojeFormatted()) || getDataHojeFormatted();
+            const val = parseFloat(valStr.replace(',', '.'));
+            if (isNaN(val)) return;
+
+            adicionarItemNoMesCorreto('', '', desc, val, dataInput, 'entrada', true);
+        }
+
+        function adicionarItemNoMesCorreto(cat, sub, desc, val, dataStr, tipo, pago = true) {
+            let m = mesAtual;
+            let a = anoAtual;
+
+            const partes = dataStr.split('/');
+            if (partes.length >= 2) {
+                const mParsed = parseInt(partes[1], 10);
+                if (!isNaN(mParsed) && mParsed >= 1 && mParsed <= 12) m = mParsed;
+                if (partes.length === 3) {
+                    const aParsed = parseInt(partes[2], 10);
+                    if (!isNaN(aParsed)) a = aParsed;
+                }
+            }
+
+            const chave = getChaveMes(m, a);
+            if (!bancoMeses[chave]) bancoMeses[chave] = { entradas: [], gastos: [] };
+
+            const novoItem = { id: Date.now() + Math.floor(Math.random() * 10000), cat, sub, desc, val, data: dataStr, pago: pago };
+
+            if (tipo === 'gasto') {
+                bancoMeses[chave].gastos.push(novoItem);
+            } else {
+                bancoMeses[chave].entradas.push(novoItem);
+            }
+
+            salvarNoFirebase();
+            atualizarInterface();
+        }
+
+        function abrirModalEntradas() { document.getElementById('modalEntradas').classList.remove('hidden'); }
+        function fecharModalEntradas() { document.getElementById('modalEntradas').classList.add('hidden'); }
+
+        function toggleIaraChat() {
+            const windowEl = document.getElementById('iaraChatWindow');
+            const bubbleEl = document.getElementById('iaraBubble');
+            
+            if (windowEl.classList.contains('hidden')) {
+                windowEl.classList.remove('hidden');
+                bubbleEl.classList.add('hidden');
+            } else {
+                windowEl.classList.add('hidden');
+                bubbleEl.classList.remove('hidden');
+            }
+        }
+
+        /* --- INTELIGÊNCIA DA IARA (MULTILINHAS E BUSCA DE ENTRADAS/RECEITAS) --- */
+        function enviarMensagemIara() {
+            const input = document.getElementById('chatInput');
+            const texto = input.value.trim();
+            if (!texto) return;
+
+            const chatHistorico = document.getElementById('chatHistorico');
+
+            chatHistorico.innerHTML += `
+                <div class="bg-emerald-950/60 p-2.5 rounded-lg border border-emerald-800/50 max-w-[85%] ml-auto text-right mb-2">
+                    <p class="font-semibold text-emerald-300 mb-0.5">Você:</p>
+                    <p class="text-slate-200 whitespace-pre-wrap">${texto}</p>
+                </div>
+            `;
+
+            input.value = '';
+            chatHistorico.scrollTop = chatHistorico.scrollHeight;
+
+            setTimeout(() => {
+                const resposta = processarMensagemBlocoIara(texto);
+                chatHistorico.innerHTML += `
+                    <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700 max-w-[85%] mb-2">
+                        <p class="font-semibold text-emerald-400 mb-0.5">Iara:</p>
+                        <p class="text-slate-300">${resposta}</p>
+                    </div>
+                `;
+                chatHistorico.scrollTop = chatHistorico.scrollHeight;
+            }, 300);
+        }
+
+        function processarMensagemBlocoIara(textoCompleto) {
+            // Separa texto por quebras de linha, vírgulas ou hífens para extrair itens individuais
+            const itensBrutos = textoCompleto.split(/[\n,;-]+/).filter(l => l.trim().length > 0);
+            let totalAdicionados = 0;
+            let ultimosDetalhamentos = [];
+
+            itensBrutos.forEach(itemStr => {
+                const res = processarLinhaUnicaIara(itemStr);
+                if (res.sucesso) {
+                    totalAdicionados++;
+                    ultimosDetalhamentos.push(res.resumo);
+                }
+            });
+
+            if (totalAdicionados === 0) {
+                return "Não consegui reconhecer valores no texto. Tente enviar como: *Entrada Aluno Carlos 250 dia 15/08/2026*.";
+            }
+
+            if (totalAdicionados === 1) {
+                return ultimosDetalhamentos[0];
+            }
+
+            return `✅ Processado! Consegui registrar **${totalAdicionados} itens** da sua lista individualmente com sucesso.`;
+        }
+
+        function processarLinhaUnicaIara(texto) {
+            // Busca o primeiro valor numérico
+            const valorMatch = texto.match(/(\d+[\.,]?\d*)/);
+            if (!valorMatch) return { sucesso: false };
+
+            const valor = parseFloat(valorMatch[1].replace(',', '.'));
+            
+            let dataLancamento = getDataHojeFormatted();
+            const dateMatch = texto.match(/(\d{1,2}\/\d{1,2}(?:\/\d{2,4})?)/);
+            
+            if (dateMatch) {
+                dataLancamento = dateMatch[1];
+                if (!dataLancamento.includes('/202')) dataLancamento += '/2026';
+            }
+
+            const txtLower = texto.toLowerCase();
+
+            // VERIFICAÇÃO FORÇADA DE ENTRADAS / RECEITAS
+            const palavrasReceita = [
+                'entrada', 'receita', 'recebi', 'cachê', 'cache', 'resgate', 
+                'salário', 'salario', 'doação', 'doacao', 'auxílio', 'auxilio', 
+                'rendimento', 'pix', 'ganho', 'aluno', 'aula'
+            ];
+
+            let isEntrada = palavrasReceita.some(palavra => txtLower.includes(palavra));
+
+            let desc = texto.replace(valorMatch[0], '')
+                            .replace(/R\$/gi, '')
+                            .replace(/dia \d{1,2}\/\d{1,2}(\/\d{2,4})?/gi, '')
+                            .replace(/\d{1,2}\/\d{1,2}(\/\d{2,4})?/gi, '')
+                            .replace(/entrada/gi, '')
+                            .replace(/receita/gi, '')
+                            .trim() || (isEntrada ? "Entrada" : "Gasto");
+
+            if (isEntrada) {
+                adicionarItemNoMesCorreto('', 'Iara', desc, valor, dataLancamento, 'entrada', true);
+                return { sucesso: true, resumo: `✅ Entrada registrada: **${desc}** de **${fmt(valor)}** em **${dataLancamento}**.` };
+            }
+
+            // CONSULTA BANCO DE APRENDIZADO DE CATEGORIAS
+            let cat = mapaCategorias[desc.toLowerCase()] || 'sobrevivencia';
+            
+            if (!mapaCategorias[desc.toLowerCase()]) {
+                if (txtLower.includes('carro') || txtLower.includes('uber') || txtLower.includes('gasolina') || txtLower.includes('posto') || txtLower.includes('oficina')) {
+                    cat = 'carro';
+                } else if (txtLower.includes('luz') || txtLower.includes('agua') || txtLower.includes('internet') || txtLower.includes('aluguel') || txtLower.includes('fixa')) {
+                    cat = 'fixas';
+                }
+            }
+
+            adicionarItemNoMesCorreto(cat, 'Iara', desc, valor, dataLancamento, 'gasto', true);
+
+            const catNome = cat === 'sobrevivencia' ? 'Sobrevivência' : (cat === 'carro' ? 'Carro & Transporte' : 'Fixas & Outros');
+            return { sucesso: true, resumo: `✅ Lançamento registrado: **${desc}** de **${fmt(valor)}** em **${catNome}** (${dataLancamento}).` };
+        }
+
+        /* --- RECONHECIMENTO DE VOZ --- */
+        function iniciarVoz() {
+            const btnMic = document.getElementById('btnMic');
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                alert("Navegador sem suporte a voz. Utilize o Chrome!");
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.interimResults = false;
+
+            recognition.onstart = function() { btnMic.classList.add('mic-active'); };
+            recognition.onresult = function(event) {
+                const textoVoz = event.results[0][0].transcript;
+                document.getElementById('chatInput').value = textoVoz;
+                btnMic.classList.remove('mic-active');
+                enviarMensagemIara();
+            };
+            recognition.onerror = function() { btnMic.classList.remove('mic-active'); };
+            recognition.onend = function() { btnMic.classList.remove('mic-active'); };
+
+            recognition.start();
+        }
+
+        // --- CARREGAMENTO DO FIREBASE REALTIME DATABASE ---
+        db.ref('dados_dashboard_meses').on('value', (snapshot) => {
+            const statusTag = document.getElementById('statusConexao');
+            statusTag.innerText = "🟢 Conectado ao Firebase";
+            statusTag.className = "text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold";
+            
+            bancoCarregadoDoFirebase = true;
+            const data = snapshot.val();
+            
+            if (data) bancoMeses = data;
+            else bancoMeses = {};
+            
+            atualizarInterface();
+        });
+
+        // CARREGA DICIONÁRIO DE APRENDIZADO
+        db.ref('mapa_categorias_aprendidas').on('value', (snapshot) => {
+            const map = snapshot.val();
+            if (map) mapaCategorias = map;
+        });
+    </script>
+</body>
+</html>
