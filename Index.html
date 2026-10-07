@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Financeiro - Nando</title>
+  <title>Dashboard Financeiro Interativo - Nando</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
     body { background-color: #121214; color: #e1e1e6; padding: 20px; }
@@ -21,150 +21,160 @@
     
     .section-title { font-size: 18px; margin: 25px 0 15px 0; color: #e1e1e6; border-bottom: 1px solid #29292e; padding-bottom: 8px; }
     
+    form { background: #202024; padding: 15px; border-radius: 8px; border: 1px solid #29292e; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    form input, form select, form button { padding: 10px; border-radius: 6px; border: 1px solid #29292e; background: #121214; color: #fff; font-size: 14px; }
+    form input[type="text"] { flex: 2; min-width: 150px; }
+    form input[type="number"], form input[type="date"] { flex: 1; min-width: 100px; }
+    form select { flex: 1; min-width: 120px; }
+    form button { background: #00b37e; color: #fff; font-weight: bold; border: none; cursor: pointer; flex: 1; min-width: 120px; }
+    form button:hover { background: #00875f; }
+
     table { width: 100%; border-collapse: collapse; background: #202024; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
     th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #29292e; font-size: 14px; }
     th { background-color: #29292e; color: #a8a8b3; }
     
-    .tag { padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-    .tag-paid { background-color: rgba(0, 179, 126, 0.2); color: #00b37e; }
-    .tag-pending { background-color: rgba(251, 169, 76, 0.2); color: #fba94c; }
+    .btn-del { background: transparent; border: none; color: #f75a68; cursor: pointer; font-weight: bold; }
+    .btn-del:hover { color: #ff0000; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>📊 Painel de Controle Financeiro - Outubro/2026</h1>
+    <h1>📱 Dashboard Financeiro App - Nando</h1>
     
-    <!-- TETOS SEMANAIS -->
-    <div class="section-title">🎯 Tetos de Gastos Semanais</div>
+    <!-- CARDS DE TOTAL -->
     <div class="grid">
       <div class="card">
-        <h3>Panificadora / Mercado Bairro</h3>
-        <div class="value yellow">R$ 200,00 <span style="font-size: 14px;">/semana</span></div>
-        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Acompanhamento contínuo</p>
+        <h3>Receita Realizada</h3>
+        <div class="value green" id="total-receita">R$ 1.728,00</div>
       </div>
       <div class="card">
-        <h3>Gasolina / Transporte</h3>
-        <div class="value yellow">R$ 150,00 <span style="font-size: 14px;">/semana</span></div>
-        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Posto Tijucas + Passione</p>
+        <h3>Despesas Realizadas</h3>
+        <div class="value red" id="total-despesas">R$ 884,79</div>
       </div>
       <div class="card">
-        <h3>Lanches / Restaurante</h3>
-        <div class="value yellow">R$ 35,00 <span style="font-size: 14px;">/semana</span></div>
-        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Açougue, So Gulla, Mister Longo</p>
+        <h3>Saldo Atual</h3>
+        <div class="value green" id="saldo-total">+ R$ 843,21</div>
       </div>
     </div>
 
-    <!-- RESUMO OUTUBRO -->
-    <div class="section-title">🗓️ Posição Geral de Outubro (Pente Fino 01 a 07/10)</div>
-    <div class="grid">
-      <div class="card">
-        <h3>Receita Entrada (Paga)</h3>
-        <div class="value green">R$ 1.728,00</div>
-        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Aulas + Meire + Vendas</p>
-      </div>
-      <div class="card">
-        <h3>Total Saídas Realizadas</h3>
-        <div class="value red">R$ 884,79</div>
-        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Ambas as contas consolidadas</p>
-      </div>
-      <div class="card">
-        <h3>Saldo Gerado no Mês</h3>
-        <div class="value green">+ R$ 843,21</div>
-        <p style="font-size: 12px; color: #a8a8b3; margin-top: 5px;">Entradas (1.728) - Saídas (884,79)</p>
-      </div>
-    </div>
+    <!-- FORMULÁRIO DE NOVO LANÇAMENTO -->
+    <div class="section-title">➕ Novo Lançamento Rápido</div>
+    <form id="finance-form">
+      <input type="date" id="date" required>
+      <input type="text" id="description" placeholder="Descrição (ex: Mercado, Aluno X)" required>
+      <input type="number" step="0.01" id="amount" placeholder="Valor (R$)" required>
+      <select id="type">
+        <option value="expense">Saída (Gasto)</option>
+        <option value="income">Entrada (Receita)</option>
+      </select>
+      <select id="category">
+        <option value="Mercado">Mercado</option>
+        <option value="Panificadora">Panificadora</option>
+        <option value="Transporte">Transporte</option>
+        <option value="Restaurante">Restaurante</option>
+        <option value="Aulas">Aulas/Alunos</option>
+        <option value="Outros">Outros</option>
+      </select>
+      <button type="submit">Lançar</button>
+    </form>
 
-    <!-- RECEITAS -->
-    <div class="section-title">📥 Entradas de Outubro (01/10 a 07/10)</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Descrição</th>
-          <th>Valor (R$)</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>02/10</td><td>Salete B Ferreira</td><td>R$ 230,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-        <tr><td>02/10</td><td>Elaine Cerqueira Da Silva</td><td>R$ 118,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-        <tr><td>02/10</td><td>Meire Daiane</td><td>R$ 40,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-        <tr><td>03/10</td><td>Kauan Santos Dos Passos</td><td>R$ 230,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-        <tr><td>04/10</td><td>Cícero Paulino</td><td>R$ 350,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-        <tr><td>05/10</td><td>Fabiana de Figueiredo</td><td>R$ 120,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-        <tr><td>06/10</td><td>Mw Veiculos Ltda</td><td>R$ 350,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-        <tr><td>06/10</td><td>Ana Clara Dos Reis</td><td>R$ 210,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-        <tr><td>06/10</td><td>Fabio Ancai</td><td>R$ 80,00</td><td><span class="tag tag-paid">Recebido</span></td></tr>
-      </tbody>
-    </table>
-
-    <!-- GASTOS DO PENTE FINO -->
-    <div class="section-title">💸 Gastos Realizados (01/10 a 07/10)</div>
+    <!-- TABELA INTERATIVA -->
+    <div class="section-title">📝 Extrato de Transações Registradas</div>
     <table>
       <thead>
         <tr>
           <th>Data</th>
           <th>Descrição</th>
           <th>Categoria</th>
-          <th>Valor (R$)</th>
+          <th>Valor</th>
+          <th>Ação</th>
         </tr>
       </thead>
-      <tbody>
-        <tr><td>07/10</td><td>Carne Boa Mm</td><td>Mercado/Alimentação</td><td class="red">R$ 33,38</td></tr>
-        <tr><td>07/10</td><td>Oscar Frutas</td><td>Mercado</td><td class="red">R$ 13,26</td></tr>
-        <tr><td>06/10</td><td>Condor Sítio Cercado</td><td>Mercado</td><td class="red">R$ 36,35</td></tr>
-        <tr><td>05/10</td><td>Posto Tijucas</td><td>Transporte</td><td class="red">R$ 50,00</td></tr>
-        <tr><td>05/10</td><td>Super Zamp</td><td>Mercado</td><td class="red">R$ 43,13</td></tr>
-        <tr><td>05/10</td><td>Engel E Santos Ltda</td><td>Outros</td><td class="red">R$ 23,15</td></tr>
-        <tr><td>05/10</td><td>Oscar Frutas</td><td>Mercado</td><td class="red">R$ 9,80</td></tr>
-        <tr><td>04/10</td><td>Maringa, 199</td><td>Outros</td><td class="red">R$ 84,94</td></tr>
-        <tr><td>04/10</td><td>Condor Sítio Cercado</td><td>Mercado</td><td class="red">R$ 64,63</td></tr>
-        <tr><td>04/10</td><td>Carne Boa Mm</td><td>Mercado/Alimentação</td><td class="red">R$ 63,34</td></tr>
-        <tr><td>04/10</td><td>Supermercado Paiva (3 compras)</td><td>Mercado</td><td class="red">R$ 52,93</td></tr>
-        <tr><td>04/10</td><td>Posto Tijucas</td><td>Transporte</td><td class="red">R$ 50,00</td></tr>
-        <tr><td>04/10</td><td>Panificadora Guanambi</td><td>Panificadora</td><td class="red">R$ 33,00</td></tr>
-        <tr><td>04/10</td><td>Casa Legal (2 compras)</td><td>Outros</td><td class="red">R$ 31,00</td></tr>
-        <tr><td>04/10</td><td>Big Real</td><td>Outros</td><td class="red">R$ 29,97</td></tr>
-        <tr><td>04/10</td><td>Distribuidora Família</td><td>Outros</td><td class="red">R$ 27,00</td></tr>
-        <tr><td>04/10</td><td>Mister Longo</td><td>Restaurante</td><td class="red">R$ 26,90</td></tr>
-        <tr><td>04/10</td><td>Loja Maribela</td><td>Outros</td><td class="red">R$ 25,72</td></tr>
-        <tr><td>04/10</td><td>TIM Recarga</td><td>Telefonia</td><td class="red">R$ 20,00</td></tr>
-        <tr><td>04/10</td><td>So Gulla</td><td>Restaurante</td><td class="red">R$ 9,99</td></tr>
-        <tr><td>04/10</td><td>Nutritiba</td><td>Outros</td><td class="red">R$ 9,50</td></tr>
-        <tr><td>04/10</td><td>Panificadora Guanambi</td><td>Panificadora</td><td class="red">R$ 6,10</td></tr>
-        <tr><td>04/10</td><td>Oscar Frutas</td><td>Mercado</td><td class="red">R$ 3,50</td></tr>
-        <tr><td>04/10</td><td>Mylua Bijuterias</td><td>Outros</td><td class="red">R$ 3,50</td></tr>
-        <tr><td>03/10</td><td>Passione Comercio (Gasolina)</td><td>Transporte</td><td class="red">R$ 53,99</td></tr>
-        <tr><td>03/10</td><td>Açougue Carne Boa</td><td>Restaurante/Alimentação</td><td class="red">R$ 48,00</td></tr>
-        <tr><td>03/10</td><td>Panificadora Guanambi</td><td>Panificadora</td><td class="red">R$ 14,95</td></tr>
-        <tr><td>03/10</td><td>Mercado Paiva</td><td>Mercado</td><td class="red">R$ 4,99</td></tr>
-        <tr><td>02/10</td><td>Planeta Doces</td><td>Panificadora/Doces</td><td class="red">R$ 39,94</td></tr>
-        <tr><td>02/10</td><td>Panificadora Guanambi</td><td>Panificadora</td><td class="red">R$ 32,40</td></tr>
-        <tr><td>02/10</td><td>Mercado Paiva</td><td>Mercado</td><td class="red">R$ 6,79</td></tr>
-        <tr><td>01/10</td><td>Mercado Paiva</td><td>Mercado</td><td class="red">R$ 14,98</td></tr>
-        <tr><td>01/10</td><td>Casa Konno (Mangueira)</td><td>Manutenção Casa</td><td class="red">R$ 9,00</td></tr>
-      </tbody>
-    </table>
-
-    <!-- PROJEÇÃO NOVEMBRO -->
-    <div class="section-title">🚗 Projeção Novembro/2026 (Carro Novo + Fixas)</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Despesa</th>
-          <th>Vencimento</th>
-          <th>Valor (R$)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Nova Parcela Veículo (1/60)</td><td>20/11/2026</td><td class="red">R$ 1.167,24</td></tr>
-        <tr><td>Transferência do Carro (2/6)</td><td>15/11/2026</td><td class="red">R$ 205,00</td></tr>
-        <tr><td>Companhia Elétrica</td><td>07/11/2026</td><td class="red">R$ 135,00</td></tr>
-        <tr><td>Companhia de Água</td><td>12/11/2026</td><td class="red">R$ 35,54</td></tr>
-        <tr><td>Internet</td><td>16/11/2026</td><td class="red">R$ 119,90</td></tr>
-        <tr><td>Telefonia Celular Tim</td><td>15/11/2026</td><td class="red">R$ 63,00</td></tr>
+      <tbody id="transaction-list">
+        <!-- Lançamentos renderizados via JavaScript -->
       </tbody>
     </table>
   </div>
+
+  <script>
+    // Base inicial com os dados do pente fino
+    const initialTransactions = [
+      { id: 1, date: "2026-10-07", description: "Carne Boa Mm", category: "Mercado", amount: 33.38, type: "expense" },
+      { id: 2, date: "2026-10-07", description: "Oscar Frutas", category: "Mercado", amount: 13.26, type: "expense" },
+      { id: 3, date: "2026-10-06", description: "Mw Veiculos Ltda", category: "Aulas", amount: 350.00, type: "income" },
+      { id: 4, date: "2026-10-06", description: "Ana Clara Dos Reis", category: "Aulas", amount: 210.00, type: "income" },
+      { id: 5, date: "2026-10-06", description: "Fabio Ancai", category: "Aulas", amount: 80.00, type: "income" },
+      { id: 6, date: "2026-10-06", description: "Condor Sítio Cercado", category: "Mercado", amount: 36.35, type: "expense" },
+      { id: 7, date: "2026-10-05", description: "Fabiana de Figueiredo", category: "Aulas", amount: 120.00, type: "income" },
+      { id: 8, date: "2026-10-05", description: "Posto Tijucas", category: "Transporte", amount: 50.00, type: "expense" },
+      { id: 9, date: "2026-10-04", description: "Cícero Paulino", category: "Aulas", amount: 350.00, type: "income" },
+      { id: 10, date: "2026-10-03", description: "Kauan Santos", category: "Aulas", amount: 230.00, type: "income" },
+      { id: 11, date: "2026-10-02", description: "Salete B Ferreira", category: "Aulas", amount: 230.00, type: "income" },
+      { id: 12, date: "2026-10-02", description: "Elaine Cerqueira", category: "Aulas", amount: 118.00, type: "income" },
+      { id: 13, date: "2026-10-02", description: "Meire Daiane", category: "Aulas", amount: 40.00, type: "income" }
+    ];
+
+    let transactions = JSON.parse(localStorage.getItem("nando_finances")) || initialTransactions;
+
+    function renderApp() {
+      const list = document.getElementById("transaction-list");
+      list.innerHTML = "";
+
+      let income = 0;
+      let expense = 0;
+
+      transactions.forEach((item, index) => {
+        if (item.type === "income") income += item.amount;
+        else expense += item.amount;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.date.split('-').reverse().join('/')}</td>
+          <td>${item.description}</td>
+          <td>${item.category}</td>
+          <td class="${item.type === 'income' ? 'green' : 'red'}">R$ ${item.amount.toFixed(2)}</td>
+          <td><button class="btn-del" onclick="deleteTransaction(${index})">❌ Excluir</button></td>
+        `;
+        list.appendChild(row);
+      });
+
+      document.getElementById("total-receita").innerText = `R$ ${income.toFixed(2)}`;
+      document.getElementById("total-despesas").innerText = `R$ ${expense.toFixed(2)}`;
+      
+      const saldo = income - expense;
+      const saldoEl = document.getElementById("saldo-total");
+      saldoEl.innerText = `${saldo >= 0 ? '+' : ''} R$ ${saldo.toFixed(2)}`;
+      saldoEl.className = `value ${saldo >= 0 ? 'green' : 'red'}`;
+
+      localStorage.setItem("nando_finances", JSON.stringify(transactions));
+    }
+
+    document.getElementById("finance-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newTransaction = {
+        id: Date.now(),
+        date: document.getElementById("date").value,
+        description: document.getElementById("description").value,
+        amount: parseFloat(document.getElementById("amount").value),
+        type: document.getElementById("type").value,
+        category: document.getElementById("category").value
+      };
+
+      transactions.unshift(newTransaction);
+      renderApp();
+      e.target.reset();
+    });
+
+    function deleteTransaction(index) {
+      transactions.splice(index, 1);
+      renderApp();
+    }
+
+    // Set data de hoje no formulário
+    document.getElementById("date").valueToDate = new Date();
+    document.getElementById("date").value = new Date().toISOString().split('T')[0];
+
+    renderApp();
+  </script>
 </body>
 </html>
