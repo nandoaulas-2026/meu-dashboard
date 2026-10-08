@@ -3,138 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Financeiro - Estilo Mobills</title>
+  <title>Mobills App Nando - Dashboard & Transações</title>
   <style>
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-    body { background-color: #121214; color: #e1e1e6; padding: 20px; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    
-    /* Header Topo Mobills */
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .header h1 { font-size: 22px; font-weight: 600; color: #fff; }
-    .btn-add { background-color: #7c3aed; color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-    .btn-add:hover { background-color: #6d28d9; }
+    body { background-color: #1a1a1e; color: #e1e1e6; padding: 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
 
-    /* Cards de Resumo */
-    .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
-    .card { background-color: #1e1e24; border-radius: 12px; padding: 18px; border: 1px solid #29292e; display: flex; flex-direction: column; justify-content: space-between; }
-    .card .title { font-size: 13px; color: #a8a8b3; margin-bottom: 8px; font-weight: 500; }
-    .card .value { font-size: 20px; font-weight: 700; }
+    /* Top Nav */
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .tabs-nav { display: flex; gap: 10px; }
+    .tab-btn { background: #26262e; border: 1px solid #323238; color: #a8a8b3; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; }
+    .tab-btn.active-income { background: #00b37e; color: #fff; border-color: #00b37e; }
+    .tab-btn.active-expense { background: #f75a68; color: #fff; border-color: #f75a68; }
+    .tab-btn.active-all { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+    
+    .btn-new { background: #00b37e; color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+    
+    /* Cards Topo */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+    .card { background: #222228; border-radius: 12px; padding: 18px; border: 1px solid #2d2d35; cursor: pointer; transition: transform 0.1s; }
+    .card:hover { transform: translateY(-2px); border-color: #444450; }
+    .card-title { font-size: 13px; color: #8d8d99; margin-bottom: 8px; }
+    .card-value { font-size: 22px; font-weight: bold; }
+    
     .green { color: #00b37e; }
     .red { color: #f75a68; }
-    
-    /* Tabela Estilo Mobills */
-    .table-container { background-color: #1e1e24; border-radius: 12px; border: 1px solid #29292e; overflow: hidden; margin-bottom: 30px; }
-    table { width: 100%; border-collapse: collapse; text-align: left; }
-    th { background-color: #26262e; color: #8d8d99; font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 14px 16px; border-bottom: 1px solid #29292e; }
-    td { padding: 14px 16px; border-bottom: 1px solid #29292e; font-size: 14px; color: #c4c4cc; }
-    tr:hover { background-color: #26262e; }
-    
-    .status-check { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; }
-    .status-paid { background-color: #00b37e; color: #fff; }
-    .status-pending { background-color: #f75a68; color: #fff; font-weight: bold; }
-    
-    .cat-badge { display: inline-flex; align-items: center; gap: 8px; background: #29292e; padding: 4px 10px; border-radius: 16px; font-size: 12px; color: #e1e1e6; }
-    .cat-icon { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
-    .action-btn { background: transparent; border: none; color: #8d8d99; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
-    .action-btn:hover { color: #fff; background: #323238; }
+    /* Date Filter Header */
+    .month-picker { text-align: center; margin: 15px 0; }
+    .month-badge { background: #222228; border: 1px solid #00b37e; color: #00b37e; padding: 6px 18px; border-radius: 20px; font-weight: bold; display: inline-block; }
 
-    /* Modal de Edição Padrão Mobills */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
-    .modal { background: #202024; border-radius: 16px; width: 100%; max-width: 420px; padding: 24px; border: 1px solid #323238; box-shadow: 0 10px 25px rgba(0,0,0,0.5); position: relative; }
+    /* Lista de Transações */
+    .table-container { background: #222228; border-radius: 12px; border: 1px solid #2d2d35; overflow: hidden; margin-bottom: 30px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #2a2a32; color: #8d8d99; font-size: 12px; font-weight: 600; padding: 12px 16px; text-align: left; }
+    td { padding: 14px 16px; border-bottom: 1px solid #2a2a32; font-size: 14px; color: #c4c4cc; }
+    tr:hover { background: #26262e; }
+
+    /* Pílula de Resumo Diário Mobills */
+    .day-summary-row { background: #1a1a1e; }
+    .day-summary-td { padding: 8px 16px; text-align: center; }
+    .day-pill { background: rgba(0, 179, 126, 0.15); color: #00b37e; padding: 4px 16px; border-radius: 15px; font-size: 12px; font-weight: bold; display: inline-block; }
+    .day-pill.expense-pill { background: rgba(247, 90, 104, 0.15); color: #f75a68; }
+
+    .status-check { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; }
+    .status-paid { background: #00b37e; color: #fff; }
+    .status-pending { background: #f75a68; color: #fff; font-weight: bold; }
+
+    .cat-badge { display: inline-flex; align-items: center; gap: 6px; background: #2a2a32; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #fff; }
+    .action-btn { background: none; border: none; color: #8d8d99; font-size: 18px; cursor: pointer; padding: 4px; }
+    .action-btn:hover { color: #fff; }
+
+    /* Modal Mobills */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
+    .modal { background: #222228; border-radius: 16px; width: 100%; max-width: 400px; padding: 24px; border: 1px solid #323238; }
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .modal-title { font-size: 18px; font-weight: 600; color: #fff; }
-    .close-modal { background: none; border: none; color: #8d8d99; font-size: 20px; cursor: pointer; }
-    
-    .amount-input-group { text-align: center; margin-bottom: 20px; }
-    .amount-input { background: transparent; border: none; font-size: 32px; font-weight: bold; text-align: center; width: 100%; outline: none; }
-    
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; font-size: 12px; color: #8d8d99; margin-bottom: 6px; }
-    .form-control { width: 100%; background: #121214; border: 1px solid #323238; border-radius: 8px; padding: 12px; color: #fff; font-size: 14px; outline: none; }
-    .form-control:focus { border-color: #7c3aed; }
-    
-    .toggle-group { display: flex; justify-content: space-between; align-items: center; background: #121214; padding: 12px; border-radius: 8px; border: 1px solid #323238; margin-bottom: 15px; }
-    .toggle-group span { font-size: 14px; color: #c4c4cc; }
-
-    .btn-save { width: 100%; padding: 14px; border-radius: 25px; border: none; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 10px; }
-    .btn-save-expense { background-color: #f75a68; color: #fff; }
-    .btn-save-income { background-color: #00b37e; color: #fff; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 12px; color: #8d8d99; margin-bottom: 4px; }
+    .form-control { width: 100%; background: #1a1a1e; border: 1px solid #323238; border-radius: 8px; padding: 10px; color: #fff; font-size: 14px; outline: none; }
+    .btn-save { width: 100%; padding: 12px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; background: #00b37e; color: #fff; }
+    .btn-delete { width: 100%; padding: 10px; border-radius: 20px; border: 1px solid #f75a68; background: transparent; color: #f75a68; font-weight: bold; cursor: pointer; margin-top: 8px; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>Transações</h1>
-      <button class="btn-add" onclick="openModal()">+ Nova Transação</button>
+    <div class="top-bar">
+      <div class="tabs-nav">
+        <button class="tab-btn active-all" id="btn-tab-all" onclick="setTab('all')">Todas</button>
+        <button class="tab-btn" id="btn-tab-income" onclick="setTab('income')">✓ Receitas</button>
+        <button class="tab-btn" id="btn-tab-expense" onclick="setTab('expense')">✕ Despesas</button>
+      </div>
+      <button class="btn-new" onclick="openModal()">+ Nova Transação</button>
     </div>
 
-    <!-- Cards Superiores Mobills -->
-    <div class="grid-cards">
-      <div class="card">
-        <div class="title">Saldo atual</div>
-        <div class="value green" id="card-saldo">R$ 843,21</div>
-      </div>
-      <div class="card">
-        <div class="title">Receitas</div>
-        <div class="value green" id="card-receitas">R$ 1.728,00</div>
-      </div>
-      <div class="card">
-        <div class="title">Despesas</div>
-        <div class="value red" id="card-despesas">R$ 884,79</div>
-      </div>
-      <div class="card">
-        <div class="title">Balanço mensal</div>
-        <div class="value green" id="card-balanco">R$ 843,21</div>
-      </div>
+    <!-- Cards Superiores Interativos -->
+    <div class="cards-grid" id="cards-container">
+      <!-- Inserido dinamicamente pelo JS -->
     </div>
 
-    <!-- Tabela de Transações -->
+    <div class="month-picker">
+      <span class="month-badge">Outubro 2026</span>
+    </div>
+
+    <!-- Tabela -->
     <div class="table-container">
       <table>
         <thead>
           <tr>
-            <th style="width: 50px;">Situação</th>
+            <th style="width: 40px;">Situação</th>
             <th>Data</th>
             <th>Descrição</th>
             <th>Categoria</th>
             <th>Conta</th>
             <th style="text-align: right;">Valor</th>
-            <th style="width: 60px; text-align: center;">Ações</th>
+            <th style="width: 40px; text-align: center;">Ações</th>
           </tr>
         </thead>
-        <tbody id="transaction-table-body">
-          <!-- Renderizado via JS -->
+        <tbody id="table-body">
+          <!-- Transações e resumos diários renderizados via JS -->
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Modal Estilo Mobills ("Editar / Nova Despesa") -->
+  <!-- Modal de Edição / Cadastro -->
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal">
       <div class="modal-header">
-        <span class="modal-title" id="modal-title-text">Editar Transação</span>
-        <button class="close-modal" onclick="closeModal()">✕</button>
+        <h3 style="color:#fff;" id="modal-title">Editar Transação</h3>
+        <button style="background:none; border:none; color:#8d8d99; font-size:20px; cursor:pointer;" onclick="closeModal()">✕</button>
       </div>
 
       <input type="hidden" id="edit-id">
 
-      <div class="amount-input-group">
-        <input type="number" step="0.01" class="amount-input red" id="input-amount" placeholder="0,00">
-      </div>
-
-      <div class="toggle-group">
-        <span>Foi paga / recebida</span>
-        <input type="checkbox" id="input-status" checked style="width: 20px; height: 20px;">
+      <div class="form-group">
+        <label>Valor (R$)</label>
+        <input type="number" step="0.01" class="form-control" id="input-amount" style="font-size:20px; font-weight:bold;">
       </div>
 
       <div class="form-group">
         <label>Tipo</label>
-        <select class="form-control" id="input-type" onchange="updateModalStyle()">
-          <option value="expense">Despesa</option>
-          <option value="income">Receita</option>
+        <select class="form-control" id="input-type">
+          <option value="income">Receita (Entrada)</option>
+          <option value="expense">Despesa (Saída)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <select class="form-control" id="input-status">
+          <option value="true">Pago / Recebido</option>
+          <option value="false">Pendente</option>
         </select>
       </div>
 
@@ -145,182 +144,321 @@
 
       <div class="form-group">
         <label>Descrição</label>
-        <input type="text" class="form-control" id="input-description" placeholder="Ex: Mercado dia dia">
+        <input type="text" class="form-control" id="input-description">
       </div>
 
       <div class="form-group">
-        <label>Categoria (Padrão Mobills)</label>
+        <label>Categoria</label>
         <select class="form-control" id="input-category">
-          <option value="Casa > Mercado dia dia">Casa > Mercado dia dia</option>
-          <option value="Casa > Manutenção da casa">Casa > Manutenção da casa</option>
+          <option value="Mensalidade">Mensalidade</option>
+          <option value="Salário">Salário</option>
+          <option value="Prêmio">Prêmio</option>
+          <option value="Mercado dia dia">Mercado dia dia</option>
+          <option value="Manutenção da casa">Manutenção da casa</option>
           <option value="Carro">Carro</option>
           <option value="Transporte">Transporte</option>
-          <option value="Panificadora / Doces">Panificadora / Doces</option>
-          <option value="Alimentação / Restaurante">Alimentação / Restaurante</option>
+          <option value="Restaurante">Restaurante</option>
+          <option value="Presentes">Presentes</option>
           <option value="Serviços">Serviços</option>
           <option value="Saúde">Saúde</option>
-          <option value="Telefonia / Internet">Telefonia / Internet</option>
-          <option value="Aulas / Receitas">Aulas / Receitas</option>
+          <option value="Vestuário">Vestuário</option>
+          <option value="Telefonia Celular">Telefonia Celular</option>
+          <option value="Companhia Telefonica">Companhia Telefonica</option>
+          <option value="Companhia de Agua">Companhia de Agua</option>
+          <option value="companhia Eletrica">companhia Eletrica</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Igreja Catolica">Igreja Catolica</option>
           <option value="Outros">Outros</option>
         </select>
       </div>
 
-      <div class="form-group">
-        <label>Conta</label>
-        <select class="form-control" id="input-account">
-          <option value="Carteira">Carteira</option>
-          <option value="Conta Corrente">Conta Corrente</option>
-        </select>
-      </div>
-
-      <button class="btn-save btn-save-expense" id="btn-save-action" onclick="saveTransaction()">SALVAR</button>
+      <button class="btn-save" onclick="saveTransaction()">SALVAR</button>
+      <button class="btn-delete" id="btn-del-modal" onclick="deleteTransaction()">EXCLUIR TRANSAÇÃO</button>
     </div>
   </div>
 
   <script>
-    // Dados fiéis do Pente Fino (01/10 a 07/10) com categorização Mobills
+    // Todos os lançamentos do Mobills (01 a 23/10)
     const initialData = [
-      { id: 1, status: true, date: "2026-10-07", description: "Carne Boa Mm", category: "Casa > Mercado dia dia", account: "Carteira", amount: 33.38, type: "expense" },
-      { id: 2, status: true, date: "2026-10-07", description: "Oscar Frutas", category: "Casa > Mercado dia dia", account: "Carteira", amount: 13.26, type: "expense" },
-      { id: 3, status: true, date: "2026-10-06", description: "Mw Veiculos Ltda", category: "Aulas / Receitas", account: "Carteira", amount: 350.00, type: "income" },
-      { id: 4, status: true, date: "2026-10-06", description: "Ana Clara Dos Reis", category: "Aulas / Receitas", account: "Carteira", amount: 210.00, type: "income" },
-      { id: 5, status: true, date: "2026-10-06", description: "Fabio Ancai", category: "Aulas / Receitas", account: "Carteira", amount: 80.00, type: "income" },
-      { id: 6, status: true, date: "2026-10-06", description: "Condor Sítio Cercado", category: "Casa > Mercado dia dia", account: "Carteira", amount: 36.35, type: "expense" },
-      { id: 7, status: true, date: "2026-10-05", description: "Fabiana de Figueiredo", category: "Aulas / Receitas", account: "Carteira", amount: 120.00, type: "income" },
-      { id: 8, status: true, date: "2026-10-05", description: "Posto Tijucas", category: "Transporte", account: "Carteira", amount: 50.00, type: "expense" },
-      { id: 9, status: true, date: "2026-10-04", description: "Cícero Paulino", category: "Aulas / Receitas", account: "Carteira", amount: 350.00, type: "income" },
-      { id: 10, status: true, date: "2026-10-03", description: "Kauan Santos", category: "Aulas / Receitas", account: "Carteira", amount: 230.00, type: "income" },
-      { id: 11, status: true, date: "2026-10-02", description: "Salete B Ferreira", category: "Aulas / Receitas", account: "Carteira", amount: 230.00, type: "income" },
-      { id: 12, status: true, date: "2026-10-02", description: "Elaine Cerqueira", category: "Aulas / Receitas", account: "Carteira", amount: 118.00, type: "income" },
-      { id: 13, status: true, date: "2026-10-02", description: "Meire Daiane", category: "Aulas / Receitas", account: "Carteira", amount: 40.00, type: "income" },
-      { id: 14, status: true, date: "2026-10-01", description: "mangueira chuveiro", category: "Casa > Manutenção da casa", account: "Carteira", amount: 9.00, type: "expense" }
+      // RECEITAS
+      { id: "r1", type: "income", status: false, date: "2026-10-21", description: "auxilio Meire", category: "Salário", account: "Carteira", amount: 1500.00 },
+      { id: "r2", type: "income", status: false, date: "2026-10-10", description: "VALDIRENE APARECIDA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "r3", type: "income", status: false, date: "2026-10-10", description: "Renan Guerreiro", category: "Mensalidade", account: "Carteira", amount: 210.00 },
+      { id: "r4", type: "income", status: false, date: "2026-10-10", description: "Márcio José", category: "Mensalidade", account: "Carteira", amount: 350.00 },
+      { id: "r5", type: "income", status: true, date: "2026-10-07", description: "ANTONELLA COSTA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "r6", type: "income", status: true, date: "2026-10-06", description: "Wesley Carlos", category: "Mensalidade", account: "Carteira", amount: 350.00 },
+      { id: "r7", type: "income", status: true, date: "2026-10-06", description: "Ana Clara dos Reis", category: "Mensalidade", account: "Carteira", amount: 210.00 },
+      { id: "r8", type: "income", status: true, date: "2026-10-05", description: "Doação pai", category: "Prêmio", account: "Carteira", amount: 350.00 },
+      { id: "r9", type: "income", status: false, date: "2026-10-05", description: "CARLOS HENRIQUE", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "r10", type: "income", status: true, date: "2026-10-03", description: "Kauan santos dos Passos", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "r11", type: "income", status: true, date: "2026-10-02", description: "SALETE BROTAS FERREIRA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "r12", type: "income", status: true, date: "2026-10-02", description: "Marco Antonio Ciqueira", category: "Mensalidade", account: "Carteira", amount: 118.00 },
+
+      // DESPESAS
+      { id: "d1", type: "expense", status: false, date: "2026-10-23", description: "Cartao de todos", category: "Saúde", account: "Carteira", amount: 33.40 },
+      { id: "d2", type: "expense", status: false, date: "2026-10-20", description: "tennis NANDO(3/3)", category: "Vestuário", account: "Carteira", amount: 163.80 },
+      { id: "d3", type: "expense", status: false, date: "2026-10-20", description: "Academia Nathy", category: "Saúde", account: "Carteira", amount: 90.00 },
+      { id: "d4", type: "expense", status: false, date: "2026-10-16", description: "Internet", category: "Companhia Telefonica", account: "Carteira", amount: 119.90 },
+      { id: "d5", type: "expense", status: false, date: "2026-10-15", description: "transferencia carro", category: "Carro", account: "Carteira", amount: 205.00 },
+      { id: "d6", type: "expense", status: false, date: "2026-10-15", description: "entrada transferencia", category: "Carro", account: "Carteira", amount: 150.00 },
+      { id: "d7", type: "expense", status: false, date: "2026-10-15", description: "Tim ( Nando)", category: "Telefonia Celular", account: "Carteira", amount: 63.00 },
+      { id: "d8", type: "expense", status: false, date: "2026-10-15", description: "Dizimo", category: "Igreja Catolica", account: "Carteira", amount: 50.00 },
+      { id: "d9", type: "expense", status: false, date: "2026-10-12", description: "Agua", category: "Companhia de Agua", account: "Carteira", amount: 35.54 },
+      { id: "d10", type: "expense", status: false, date: "2026-10-10", description: "carro atrasadas(4/4)", category: "Carro", account: "Carteira", amount: 668.00 },
+      { id: "d11", type: "expense", status: false, date: "2026-10-10", description: "Concerto carro(3/3)", category: "Carro", account: "Carteira", amount: 225.90 },
+      { id: "d12", type: "expense", status: false, date: "2026-10-10", description: "FUNDO EMERGENCIAL", category: "Outros", account: "Carteira", amount: 100.00 },
+      { id: "d13", type: "expense", status: true, date: "2026-10-07", description: "frutas", category: "Mercado dia dia", account: "Carteira", amount: 13.26 },
+      { id: "d14", type: "expense", status: true, date: "2026-10-07", description: "carne", category: "Mercado dia dia", account: "Carteira", amount: 33.38 },
+      { id: "d15", type: "expense", status: true, date: "2026-10-07", description: "Compra no débito", category: "Mercado dia dia", account: "Carteira", amount: 51.25 },
+      { id: "d16", type: "expense", status: false, date: "2026-10-07", description: "Luz", category: "companhia Eletrica", account: "Carteira", amount: 135.00 },
+      { id: "d17", type: "expense", status: true, date: "2026-10-06", description: "bolo Mari", category: "Restaurante", account: "Carteira", amount: 120.00 },
+      { id: "d18", type: "expense", status: true, date: "2026-10-06", description: "frutas", category: "Mercado dia dia", account: "Carteira", amount: 9.80 },
+      { id: "d19", type: "expense", status: true, date: "2026-10-06", description: "Gasolina", category: "Transporte", account: "Carteira", amount: 50.00 },
+      { id: "d20", type: "expense", status: true, date: "2026-10-06", description: "ENGEL", category: "Mercado dia dia", account: "Carteira", amount: 23.15 },
+      { id: "d21", type: "expense", status: true, date: "2026-10-06", description: "Compra no débito", category: "Mercado dia dia", account: "Carteira", amount: 43.13 },
+      { id: "d22", type: "expense", status: true, date: "2026-10-06", description: "Futebol ⚽", category: "Lazer", account: "Carteira", amount: 80.00 },
+      { id: "d23", type: "expense", status: true, date: "2026-10-06", description: "Condor", category: "Mercado dia dia", account: "Carteira", amount: 36.35 },
+      { id: "d24", type: "expense", status: false, date: "2026-10-06", description: "Manutencao da casa", category: "Manutenção da casa", account: "Carteira", amount: 100.00 },
+      { id: "d25", type: "expense", status: false, date: "2026-10-06", description: "Manutenção do carro", category: "Carro", account: "Carteira", amount: 100.00 },
+      { id: "d26", type: "expense", status: true, date: "2026-10-05", description: "Mercado dia dia", category: "Mercado dia dia", account: "Carteira", amount: 6.48 },
+      { id: "d27", type: "expense", status: true, date: "2026-10-05", description: "lanche Nathan", category: "Restaurante", account: "Carteira", amount: 9.50 },
+      { id: "d28", type: "expense", status: true, date: "2026-10-05", description: "Gasolina", category: "Transporte", account: "Carteira", amount: 50.00 },
+      { id: "d29", type: "expense", status: true, date: "2026-10-05", description: "loja maribele", category: "Presentes", account: "Carteira", amount: 25.72 },
+      { id: "d30", type: "expense", status: true, date: "2026-10-05", description: "big real", category: "Presentes", account: "Carteira", amount: 29.97 },
+      { id: "d31", type: "expense", status: true, date: "2026-10-05", description: "Mylua bijuteria", category: "Presentes", account: "Carteira", amount: 3.50 },
+      { id: "d32", type: "expense", status: true, date: "2026-10-05", description: "Compra no débito", category: "Mercado dia dia", account: "Carteira", amount: 64.63 },
+      { id: "d33", type: "expense", status: true, date: "2026-10-05", description: "casa legal", category: "Presentes", account: "Carteira", amount: 16.00 },
+      { id: "d34", type: "expense", status: true, date: "2026-10-05", description: "Pani", category: "Mercado dia dia", account: "Carteira", amount: 33.00 },
+      { id: "d35", type: "expense", status: true, date: "2026-10-05", description: "Lojas Maringa", category: "Presentes", account: "Carteira", amount: 84.94 },
+      { id: "d36", type: "expense", status: true, date: "2026-10-05", description: "casa legal", category: "Presentes", account: "Carteira", amount: 15.00 },
+      { id: "d37", type: "expense", status: true, date: "2026-10-05", description: "mister longo", category: "Presentes", account: "Carteira", amount: 26.90 },
+      { id: "d38", type: "expense", status: true, date: "2026-10-05", description: "linguiça niver Mari", category: "Restaurante", account: "Carteira", amount: 63.34 },
+      { id: "d39", type: "expense", status: true, date: "2026-10-05", description: "so gula aniver", category: "Restaurante", account: "Carteira", amount: 9.99 },
+      { id: "d40", type: "expense", status: true, date: "2026-10-05", description: "niver Mari", category: "Restaurante", account: "Carteira", amount: 3.50 },
+      { id: "d41", type: "expense", status: true, date: "2026-10-05", description: "niver Mari", category: "Restaurante", account: "Carteira", amount: 27.97 },
+      { id: "d42", type: "expense", status: true, date: "2026-10-05", description: "niver Mari", category: "Restaurante", account: "Carteira", amount: 18.48 },
+      { id: "d43", type: "expense", status: true, date: "2026-10-05", description: "suco", category: "Restaurante", account: "Carteira", amount: 27.00 },
+      { id: "d44", type: "expense", status: true, date: "2026-10-05", description: "Pani", category: "Mercado dia dia", account: "Carteira", amount: 6.10 },
+      { id: "d45", type: "expense", status: true, date: "2026-10-04", description: "Recarga de celular", category: "Serviços", account: "Carteira", amount: 20.00 },
+      { id: "d46", type: "expense", status: true, date: "2026-10-03", description: "Mercado dia dia", category: "Mercado dia dia", account: "Carteira", amount: 4.99 },
+      { id: "d47", type: "expense", status: true, date: "2026-10-03", description: "Gasolina", category: "Transporte", account: "Carteira", amount: 53.99 },
+      { id: "d48", type: "expense", status: true, date: "2026-10-03", description: "Pani", category: "Mercado dia dia", account: "Carteira", amount: 14.95 },
+      { id: "d49", type: "expense", status: true, date: "2026-10-03", description: "espetinho", category: "Restaurante", account: "Carteira", amount: 48.00 },
+      { id: "d50", type: "expense", status: true, date: "2026-10-02", description: "Pani", category: "Mercado dia dia", account: "Carteira", amount: 32.40 },
+      { id: "d51", type: "expense", status: true, date: "2026-10-02", description: "Mercado dia dia", category: "Mercado dia dia", account: "Carteira", amount: 6.79 },
+      { id: "d52", type: "expense", status: true, date: "2026-10-02", description: "planeta doces", category: "Mercado dia dia", account: "Carteira", amount: 39.94 },
+      { id: "d53", type: "expense", status: true, date: "2026-10-01", description: "Mercado dia dia", category: "Mercado dia dia", account: "Carteira", amount: 14.98 },
+      { id: "d54", type: "expense", status: true, date: "2026-10-01", description: "mangueira chuveiro", category: "Manutenção da casa", account: "Carteira", amount: 9.00 },
+      { id: "d55", type: "expense", status: false, date: "2026-10-01", description: "tv strem ( Netflix)", category: "Serviços", account: "Carteira", amount: 20.00 }
     ];
 
-    let db = JSON.parse(localStorage.getItem("mobills_app_db")) || initialData;
+    let transactions = JSON.parse(localStorage.getItem("mobills_nando_full")) || initialData;
+    let currentTab = "all";
 
-    function renderTable() {
-      const tbody = document.getElementById("transaction-table-body");
-      tbody.innerHTML = "";
+    function setTab(tab) {
+      currentTab = tab;
+      document.getElementById("btn-tab-all").className = `tab-btn ${tab === 'all' ? 'active-all' : ''}`;
+      document.getElementById("btn-tab-income").className = `tab-btn ${tab === 'income' ? 'active-income' : ''}`;
+      document.getElementById("btn-tab-expense").className = `tab-btn ${tab === 'expense' ? 'active-expense' : ''}`;
+      renderApp();
+    }
 
-      let totalReceitas = 0;
-      let totalDespesas = 0;
+    function renderCards() {
+      const cardsContainer = document.getElementById("cards-container");
+      
+      let recPendente = 0, recPaga = 0;
+      let despPendente = 0, despPaga = 0;
 
-      db.forEach((item, index) => {
-        if (item.type === "income" && item.status) totalReceitas += item.amount;
-        if (item.type === "expense" && item.status) totalDespesas += item.amount;
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>
-            <div class="status-check ${item.status ? 'status-paid' : 'status-pending'}" onclick="toggleStatus(${index})">
-              ${item.status ? '✓' : '!'}
-            </div>
-          </td>
-          <td>${item.date.split('-').reverse().join('/')}</td>
-          <td style="font-weight: 500; color: #fff;">${item.description}</td>
-          <td>
-            <span class="cat-badge">
-              <span class="cat-icon" style="background-color: ${item.type === 'income' ? '#00b37e' : '#0077ff'};"></span>
-              ${item.category}
-            </span>
-          </td>
-          <td>${item.account}</td>
-          <td style="text-align: right; font-weight: bold;" class="${item.type === 'income' ? 'green' : 'red'}">
-            R$ ${item.amount.toFixed(2)}
-          </td>
-          <td style="text-align: center;">
-            <button class="action-btn" onclick="editTransaction(${index})">⋮</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
+      transactions.forEach(t => {
+        if (t.type === "income") {
+          if (t.status) recPaga += t.amount;
+          else recPendente += t.amount;
+        } else {
+          if (t.status) despPaga += t.amount;
+          else despPendente += t.amount;
+        }
       });
 
-      const saldo = totalReceitas - totalDespesas;
-      document.getElementById("card-receitas").innerText = `R$ ${totalReceitas.toFixed(2)}`;
-      document.getElementById("card-despesas").innerText = `R$ ${totalDespesas.toFixed(2)}`;
-      document.getElementById("card-saldo").innerText = `R$ ${saldo.toFixed(2)}`;
-      document.getElementById("card-balanco").innerText = `R$ ${saldo.toFixed(2)}`;
+      if (currentTab === "income") {
+        cardsContainer.innerHTML = `
+          <div class="card" onclick="setTab('income')">
+            <div class="card-title">Receitas pendentes</div>
+            <div class="card-value red">R$ ${recPendente.toFixed(2)}</div>
+          </div>
+          <div class="card" onclick="setTab('income')">
+            <div class="card-title">Receitas recebidas</div>
+            <div class="card-value green">R$ ${recPaga.toFixed(2)}</div>
+          </div>
+          <div class="card" onclick="setTab('income')">
+            <div class="card-title">Total Receitas</div>
+            <div class="card-value green">R$ ${(recPendente + recPaga).toFixed(2)}</div>
+          </div>
+        `;
+      } else if (currentTab === "expense") {
+        cardsContainer.innerHTML = `
+          <div class="card" onclick="setTab('expense')">
+            <div class="card-title">Despesas pendentes</div>
+            <div class="card-value red">R$ ${despPendente.toFixed(2)}</div>
+          </div>
+          <div class="card" onclick="setTab('expense')">
+            <div class="card-title">Despesas pagas</div>
+            <div class="card-value green">R$ ${despPaga.toFixed(2)}</div>
+          </div>
+          <div class="card" onclick="setTab('expense')">
+            <div class="card-title">Total Despesas</div>
+            <div class="card-value red">R$ ${(despPendente + despPaga).toFixed(2)}</div>
+          </div>
+        `;
+      } else {
+        const saldoGeral = (recPaga - despPaga);
+        cardsContainer.innerHTML = `
+          <div class="card" onclick="setTab('income')">
+            <div class="card-title">Receitas Recebidas</div>
+            <div class="card-value green">R$ ${recPaga.toFixed(2)}</div>
+          </div>
+          <div class="card" onclick="setTab('expense')">
+            <div class="card-title">Despesas Pagas</div>
+            <div class="card-value red">R$ ${despPaga.toFixed(2)}</div>
+          </div>
+          <div class="card" onclick="setTab('all')">
+            <div class="card-title">Saldo Atual (Caixa)</div>
+            <div class="card-value ${saldoGeral >= 0 ? 'green' : 'red'}">R$ ${saldoGeral.toFixed(2)}</div>
+          </div>
+        `;
+      }
+    }
 
-      localStorage.setItem("mobills_app_db", JSON.stringify(db));
+    function renderTable() {
+      const tbody = document.getElementById("table-body");
+      tbody.innerHTML = "";
+
+      let filtered = transactions;
+      if (currentTab === "income") filtered = transactions.filter(t => t.type === "income");
+      if (currentTab === "expense") filtered = transactions.filter(t => t.type === "expense");
+
+      // Agrupar por data
+      const dates = [...new Set(filtered.map(t => t.date))].sort().reverse();
+
+      dates.forEach(date => {
+        const dayItems = filtered.filter(t => t.date === date);
+        let dayTotal = 0;
+
+        dayItems.forEach((item) => {
+          dayTotal += item.amount;
+          const indexInMain = transactions.findIndex(t => t.id === item.id);
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>
+              <div class="status-check ${item.status ? 'status-paid' : 'status-pending'}" onclick="toggleStatus(${indexInMain})">
+                ${item.status ? '✓' : '!'}
+              </div>
+            </td>
+            <td>${item.date.split('-').reverse().join('/')}</td>
+            <td style="font-weight: 500; color: #fff;">${item.description}</td>
+            <td><span class="cat-badge">${item.category}</span></td>
+            <td>${item.account}</td>
+            <td style="text-align: right; font-weight: bold;" class="${item.type === 'income' ? 'green' : 'red'}">
+              R$ ${item.amount.toFixed(2)}
+            </td>
+            <td style="text-align: center;">
+              <button class="action-btn" onclick="openModal(${indexInMain})">⋮</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        // Pílula Diária Mobills
+        const firstType = dayItems[0].type;
+        const summaryTr = document.createElement("tr");
+        summaryTr.className = "day-summary-row";
+        summaryTr.innerHTML = `
+          <td colspan="7" class="day-summary-td">
+            <span class="day-pill ${firstType === 'expense' ? 'expense-pill' : ''}">
+              Neste dia você ${firstType === 'income' ? 'recebeu' : 'gastou'} R$ ${dayTotal.toFixed(2)}
+            </span>
+          </td>
+        `;
+        tbody.appendChild(summaryTr);
+      });
+
+      localStorage.setItem("mobills_nando_full", JSON.stringify(transactions));
     }
 
     function toggleStatus(index) {
-      db[index].status = !db[index].status;
+      transactions[index].status = !transactions[index].status;
+      renderApp();
+    }
+
+    function renderApp() {
+      renderCards();
       renderTable();
     }
 
-    function openModal(item = null, index = null) {
+    function openModal(index = null) {
       document.getElementById("modal-overlay").style.display = "flex";
       
-      if (item !== null && index !== null) {
-        document.getElementById("modal-title-text").innerText = "Editar Transação";
+      if (index !== null) {
+        const item = transactions[index];
+        document.getElementById("modal-title").innerText = "Editar Transação";
         document.getElementById("edit-id").value = index;
         document.getElementById("input-amount").value = item.amount;
-        document.getElementById("input-status").checked = item.status;
         document.getElementById("input-type").value = item.type;
+        document.getElementById("input-status").value = item.status.toString();
         document.getElementById("input-date").value = item.date;
         document.getElementById("input-description").value = item.description;
         document.getElementById("input-category").value = item.category;
-        document.getElementById("input-account").value = item.account;
+        document.getElementById("btn-del-modal").style.display = "block";
       } else {
-        document.getElementById("modal-title-text").innerText = "Nova Transação";
+        document.getElementById("modal-title").innerText = "Nova Transação";
         document.getElementById("edit-id").value = "";
         document.getElementById("input-amount").value = "";
-        document.getElementById("input-status").checked = true;
         document.getElementById("input-type").value = "expense";
+        document.getElementById("input-status").value = "true";
         document.getElementById("input-date").value = new Date().toISOString().split('T')[0];
         document.getElementById("input-description").value = "";
-        document.getElementById("input-category").value = "Casa > Mercado dia dia";
-        document.getElementById("input-account").value = "Carteira";
+        document.getElementById("input-category").value = "Mercado dia dia";
+        document.getElementById("btn-del-modal").style.display = "none";
       }
-      updateModalStyle();
     }
 
     function closeModal() {
       document.getElementById("modal-overlay").style.display = "none";
     }
 
-    function updateModalStyle() {
-      const type = document.getElementById("input-type").value;
-      const amountInput = document.getElementById("input-amount");
-      const btnSave = document.getElementById("btn-save-action");
-
-      if (type === "expense") {
-        amountInput.className = "amount-input red";
-        btnSave.className = "btn-save btn-save-expense";
-      } else {
-        amountInput.className = "amount-input green";
-        btnSave.className = "btn-save btn-save-income";
-      }
-    }
-
-    function editTransaction(index) {
-      openModal(db[index], index);
-    }
-
     function saveTransaction() {
       const index = document.getElementById("edit-id").value;
-      const transaction = {
+      const item = {
+        id: index !== "" ? transactions[index].id : "new_" + Date.now(),
         amount: parseFloat(document.getElementById("input-amount").value) || 0,
-        status: document.getElementById("input-status").checked,
         type: document.getElementById("input-type").value,
+        status: document.getElementById("input-status").value === "true",
         date: document.getElementById("input-date").value,
         description: document.getElementById("input-description").value,
         category: document.getElementById("input-category").value,
-        account: document.getElementById("input-account").value
+        account: "Carteira"
       };
 
       if (index !== "") {
-        db[index] = transaction;
+        transactions[index] = item;
       } else {
-        db.unshift(transaction);
+        transactions.unshift(item);
       }
 
       closeModal();
-      renderTable();
+      renderApp();
     }
 
-    renderTable();
+    function deleteTransaction() {
+      const index = document.getElementById("edit-id").value;
+      if (index !== "") {
+        transactions.splice(index, 1);
+        closeModal();
+        renderApp();
+      }
+    }
+
+    renderApp();
   </script>
 </body>
 </html>
