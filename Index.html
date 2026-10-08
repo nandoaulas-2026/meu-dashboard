@@ -29,12 +29,17 @@
     .green { color: #00b37e; }
     .red { color: #f75a68; }
 
-    /* Seletor de Mês Estilo Mobills */
-    .month-picker-container { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 20px 0; }
-    .nav-arrow { background: #222228; border: 1px solid #323238; color: #00b37e; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 16px; }
-    .nav-arrow:hover { background: #2d2d35; color: #fff; }
-    .month-badge { background: #222228; border: 1px solid #00b37e; color: #00b37e; padding: 6px 20px; border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; }
-    .month-badge:hover { background: #2a2a32; }
+    /* Seletor Mês/Ano Idêntico ao Mobills */
+    .period-selector { text-align: center; margin: 25px 0 15px 0; }
+    .year-nav { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 12px; }
+    .year-btn { background: none; border: none; color: #00b37e; font-size: 18px; font-weight: bold; cursor: pointer; }
+    .year-btn:hover { color: #fff; }
+    .year-display { color: #00b37e; font-size: 16px; font-weight: bold; }
+
+    .months-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+    .month-pill { background: transparent; border: 1px solid #323238; color: #00b37e; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; }
+    .month-pill:hover { border-color: #00b37e; }
+    .month-pill.active { background: #00b37e; color: #fff; border-color: #00b37e; font-weight: bold; }
 
     /* Lista de Transações */
     .table-container { background: #222228; border-radius: 12px; border: 1px solid #2d2d35; overflow: hidden; margin-bottom: 30px; }
@@ -43,7 +48,7 @@
     td { padding: 14px 16px; border-bottom: 1px solid #2a2a32; font-size: 14px; color: #c4c4cc; }
     tr:hover { background: #26262e; }
 
-    /* Pílula de Resumo Diário */
+    /* Pílula Diária Mobills */
     .day-summary-row { background: #1a1a1e; }
     .day-summary-td { padding: 8px 16px; text-align: center; }
     .day-pill { background: rgba(0, 179, 126, 0.15); color: #00b37e; padding: 4px 16px; border-radius: 15px; font-size: 12px; font-weight: bold; display: inline-block; }
@@ -66,6 +71,7 @@
     .form-control { width: 100%; background: #1a1a1e; border: 1px solid #323238; border-radius: 8px; padding: 10px; color: #fff; font-size: 14px; outline: none; }
     .btn-save { width: 100%; padding: 12px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; background: #00b37e; color: #fff; }
     .btn-delete { width: 100%; padding: 10px; border-radius: 20px; border: 1px solid #f75a68; background: transparent; color: #f75a68; font-weight: bold; cursor: pointer; margin-top: 8px; }
+    .empty-msg { text-align: center; padding: 30px; color: #8d8d99; font-style: italic; }
   </style>
 </head>
 <body>
@@ -82,14 +88,17 @@
     <!-- Cards Superiores Interativos -->
     <div class="cards-grid" id="cards-container"></div>
 
-    <!-- Navegação Temporal de Meses Mobills -->
-    <div class="month-picker-container">
-      <div class="nav-arrow" onclick="changeMonth(-1)">‹</div>
-      <div class="month-badge" id="current-month-display" onclick="selectMonthDirectly()">Outubro 2026</div>
-      <div class="nav-arrow" onclick="changeMonth(1)">›</div>
+    <!-- Seletor de Anos e Meses Mobills -->
+    <div class="period-selector">
+      <div class="year-nav">
+        <button class="year-btn" onclick="changeYear(-1)">‹</button>
+        <span class="year-display" id="year-display">2026</span>
+        <button class="year-btn" onclick="changeYear(1)">›</button>
+      </div>
+      <div class="months-row" id="months-row"></div>
     </div>
 
-    <!-- Tabela -->
+    <!-- Tabela de Transações -->
     <div class="table-container">
       <table>
         <thead>
@@ -180,15 +189,13 @@
   </div>
 
   <script>
-    // Dados completos sincronizados com os totais do Mobills
     const initialData = [
-      // RECEITAS (Total Pendentes: R$ 2.750,00 / Recebidas: R$ 1.948,00 -> Total: R$ 4.468,00)
+      // RECEITAS OUTUBRO (Totais Exatos: Pendente R$ 2.520,00 | Recebida R$ 1.718,00 | Total R$ 4.238,00)
       { id: "r1", type: "income", status: false, date: "2026-10-21", description: "auxilio Meire", category: "Salário", account: "Carteira", amount: 1500.00 },
       { id: "r2", type: "income", status: false, date: "2026-10-10", description: "VALDIRENE APARECIDA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
       { id: "r3", type: "income", status: false, date: "2026-10-10", description: "Renan Guerreiro", category: "Mensalidade", account: "Carteira", amount: 210.00 },
       { id: "r4", type: "income", status: false, date: "2026-10-10", description: "Márcio José", category: "Mensalidade", account: "Carteira", amount: 350.00 },
       { id: "r5", type: "income", status: true, date: "2026-10-07", description: "ANTONELLA COSTA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
-      { id: "r5_dup", type: "income", status: true, date: "2026-10-07", description: "ANTONELLA COSTA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
       { id: "r6", type: "income", status: true, date: "2026-10-06", description: "Wesley Carlos", category: "Mensalidade", account: "Carteira", amount: 350.00 },
       { id: "r7", type: "income", status: true, date: "2026-10-06", description: "Ana Clara dos Reis", category: "Mensalidade", account: "Carteira", amount: 210.00 },
       { id: "r8", type: "income", status: true, date: "2026-10-05", description: "Doação pai", category: "Prêmio", account: "Carteira", amount: 350.00 },
@@ -197,7 +204,7 @@
       { id: "r11", type: "income", status: true, date: "2026-10-02", description: "SALETE BROTAS FERREIRA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
       { id: "r12", type: "income", status: true, date: "2026-10-02", description: "Marco Antonio Ciqueira", category: "Mensalidade", account: "Carteira", amount: 118.00 },
 
-      // DESPESAS
+      // DESPESAS OUTUBRO
       { id: "d1", type: "expense", status: false, date: "2026-10-23", description: "Cartao de todos", category: "Saúde", account: "Carteira", amount: 33.40 },
       { id: "d2", type: "expense", status: false, date: "2026-10-20", description: "tennis NANDO(3/3)", category: "Vestuário", account: "Carteira", amount: 163.80 },
       { id: "d3", type: "expense", status: false, date: "2026-10-20", description: "Academia Nathy", category: "Saúde", account: "Carteira", amount: 90.00 },
@@ -252,34 +259,45 @@
       { id: "d52", type: "expense", status: true, date: "2026-10-02", description: "planeta doces", category: "Mercado dia dia", account: "Carteira", amount: 39.94 },
       { id: "d53", type: "expense", status: true, date: "2026-10-01", description: "Mercado dia dia", category: "Mercado dia dia", account: "Carteira", amount: 14.98 },
       { id: "d54", type: "expense", status: true, date: "2026-10-01", description: "mangueira chuveiro", category: "Manutenção da casa", account: "Carteira", amount: 9.00 },
-      { id: "d55", type: "expense", status: false, date: "2026-10-01", description: "tv strem ( Netflix)", category: "Serviços", account: "Carteira", amount: 20.00 }
+      { id: "d55", type: "expense", status: false, date: "2026-10-01", description: "tv strem ( Netflix)", category: "Serviços", account: "Carteira", amount: 20.00 },
+
+      // NOVEMBRO (PROJEÇÃO)
+      { id: "nov1", type: "expense", status: false, date: "2026-11-20", description: "PARCELA CARRO NOVO (1/60)", category: "Carro", account: "Carteira", amount: 1167.24 },
+      { id: "nov2", type: "expense", status: false, date: "2026-11-15", description: "Transferência Carro (2/6)", category: "Carro", account: "Carteira", amount: 205.00 },
+      { id: "nov3", type: "expense", status: false, date: "2026-11-07", description: "Companhia Elétrica", category: "companhia Eletrica", account: "Carteira", amount: 135.00 },
+      { id: "nov4", type: "expense", status: false, date: "2026-11-12", description: "Companhia de Água", category: "Companhia de Agua", account: "Carteira", amount: 35.54 },
+      { id: "nov5", type: "expense", status: false, date: "2026-11-16", description: "Internet", category: "Companhia Telefonica", account: "Carteira", amount: 119.90 },
+      { id: "nov6", type: "expense", status: false, date: "2026-11-15", description: "Telefonia Celular Tim", category: "Telefonia Celular", account: "Carteira", amount: 63.00 }
     ];
 
-    let transactions = JSON.parse(localStorage.getItem("mobills_nando_audit")) || initialData;
+    let transactions = JSON.parse(localStorage.getItem("mobills_nando_v2026")) || initialData;
     let currentTab = "all";
-    let currentDate = new Date(2026, 9, 1); // Outubro 2026
+    let selectedYear = 2026;
+    let selectedMonth = 9; // Outubro (0-indexed: 9 = Outubro)
 
-    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const monthAbbrs = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
-    function updateMonthDisplay() {
-      const m = monthNames[currentDate.getMonth()];
-      const y = currentDate.getFullYear();
-      document.getElementById("current-month-display").innerText = `${m} ${y}`;
+    function renderMonthPills() {
+      const container = document.getElementById("months-row");
+      container.innerHTML = "";
+      monthAbbrs.forEach((m, idx) => {
+        const btn = document.createElement("button");
+        btn.className = `month-pill ${idx === selectedMonth ? 'active' : ''}`;
+        btn.innerText = m;
+        btn.onclick = () => {
+          selectedMonth = idx;
+          renderMonthPills();
+          renderApp();
+        };
+        container.appendChild(btn);
+      });
+      document.getElementById("year-display").innerText = selectedYear;
+    }
+
+    function changeYear(delta) {
+      selectedYear += delta;
+      renderMonthPills();
       renderApp();
-    }
-
-    function changeMonth(delta) {
-      currentDate.setMonth(currentDate.getMonth() + delta);
-      updateMonthDisplay();
-    }
-
-    function selectMonthDirectly() {
-      const m = prompt("Digite o mês (1-12):", currentDate.getMonth() + 1);
-      const y = prompt("Digite o ano (ex: 2026):", currentDate.getFullYear());
-      if (m && y) {
-        currentDate = new Date(parseInt(y), parseInt(m) - 1, 1);
-        updateMonthDisplay();
-      }
     }
 
     function setTab(tab) {
@@ -290,13 +308,20 @@
       renderApp();
     }
 
+    function getFilteredByDate() {
+      const monthFormatted = (selectedMonth + 1).toString().padStart(2, '0');
+      const prefix = `${selectedYear}-${monthFormatted}`;
+      return transactions.filter(t => t.date.startsWith(prefix));
+    }
+
     function renderCards() {
       const cardsContainer = document.getElementById("cards-container");
+      const dateFiltered = getFilteredByDate();
       
       let recPendente = 0, recPaga = 0;
       let despPendente = 0, despPaga = 0;
 
-      transactions.forEach(t => {
+      dateFiltered.forEach(t => {
         if (t.type === "income") {
           if (t.status) recPaga += t.amount;
           else recPendente += t.amount;
@@ -309,30 +334,30 @@
       if (currentTab === "income") {
         cardsContainer.innerHTML = `
           <div class="card" onclick="setTab('income')">
-            <div class="card-title">Receitas pendentes</div>
+            <div class="card-title">Receitas pendentes ›</div>
             <div class="card-value red">R$ ${recPendente.toFixed(2)}</div>
           </div>
           <div class="card" onclick="setTab('income')">
-            <div class="card-title">Receitas recebidas</div>
+            <div class="card-title">Receitas recebidas ›</div>
             <div class="card-value green">R$ ${recPaga.toFixed(2)}</div>
           </div>
           <div class="card" onclick="setTab('income')">
-            <div class="card-title">Total Receitas</div>
+            <div class="card-title">Total Receitas ›</div>
             <div class="card-value green">R$ ${(recPendente + recPaga).toFixed(2)}</div>
           </div>
         `;
       } else if (currentTab === "expense") {
         cardsContainer.innerHTML = `
           <div class="card" onclick="setTab('expense')">
-            <div class="card-title">Despesas pendentes</div>
+            <div class="card-title">Despesas pendentes ›</div>
             <div class="card-value red">R$ ${despPendente.toFixed(2)}</div>
           </div>
           <div class="card" onclick="setTab('expense')">
-            <div class="card-title">Despesas pagas</div>
+            <div class="card-title">Despesas pagas ›</div>
             <div class="card-value green">R$ ${despPaga.toFixed(2)}</div>
           </div>
           <div class="card" onclick="setTab('expense')">
-            <div class="card-title">Total Despesas</div>
+            <div class="card-title">Total Despesas ›</div>
             <div class="card-value red">R$ ${(despPendente + despPaga).toFixed(2)}</div>
           </div>
         `;
@@ -340,15 +365,15 @@
         const saldoGeral = (recPaga - despPaga);
         cardsContainer.innerHTML = `
           <div class="card" onclick="setTab('income')">
-            <div class="card-title">Receitas Recebidas</div>
+            <div class="card-title">Receitas Recebidas ›</div>
             <div class="card-value green">R$ ${recPaga.toFixed(2)}</div>
           </div>
           <div class="card" onclick="setTab('expense')">
-            <div class="card-title">Despesas Pagas</div>
+            <div class="card-title">Despesas Pagas ›</div>
             <div class="card-value red">R$ ${despPaga.toFixed(2)}</div>
           </div>
           <div class="card" onclick="setTab('all')">
-            <div class="card-title">Saldo Atual (Caixa)</div>
+            <div class="card-title">Saldo Atual (Caixa) ›</div>
             <div class="card-value ${saldoGeral >= 0 ? 'green' : 'red'}">R$ ${saldoGeral.toFixed(2)}</div>
           </div>
         `;
@@ -359,9 +384,14 @@
       const tbody = document.getElementById("table-body");
       tbody.innerHTML = "";
 
-      let filtered = transactions;
-      if (currentTab === "income") filtered = transactions.filter(t => t.type === "income");
-      if (currentTab === "expense") filtered = transactions.filter(t => t.type === "expense");
+      let filtered = getFilteredByDate();
+      if (currentTab === "income") filtered = filtered.filter(t => t.type === "income");
+      if (currentTab === "expense") filtered = filtered.filter(t => t.type === "expense");
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="empty-msg">Nenhuma transação encontrada para este mês.</td></tr>`;
+        return;
+      }
 
       const dates = [...new Set(filtered.map(t => t.date))].sort().reverse();
 
@@ -407,7 +437,7 @@
         tbody.appendChild(summaryTr);
       });
 
-      localStorage.setItem("mobills_nando_audit", JSON.stringify(transactions));
+      localStorage.setItem("mobills_nando_v2026", JSON.stringify(transactions));
     }
 
     function toggleStatus(index) {
@@ -440,7 +470,10 @@
         document.getElementById("input-amount").value = "";
         document.getElementById("input-type").value = "expense";
         document.getElementById("input-status").value = "true";
-        document.getElementById("input-date").value = new Date().toISOString().split('T')[0];
+        
+        const monthStr = (selectedMonth + 1).toString().padStart(2, '0');
+        document.getElementById("input-date").value = `${selectedYear}-${monthStr}-01`;
+        
         document.getElementById("input-description").value = "";
         document.getElementById("input-category").value = "Mercado dia dia";
         document.getElementById("btn-del-modal").style.display = "none";
@@ -483,6 +516,7 @@
       }
     }
 
+    renderMonthPills();
     renderApp();
   </script>
 </body>
