@@ -29,9 +29,12 @@
     .green { color: #00b37e; }
     .red { color: #f75a68; }
 
-    /* Date Filter Header */
-    .month-picker { text-align: center; margin: 15px 0; }
-    .month-badge { background: #222228; border: 1px solid #00b37e; color: #00b37e; padding: 6px 18px; border-radius: 20px; font-weight: bold; display: inline-block; }
+    /* Seletor de Mês Estilo Mobills */
+    .month-picker-container { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 20px 0; }
+    .nav-arrow { background: #222228; border: 1px solid #323238; color: #00b37e; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 16px; }
+    .nav-arrow:hover { background: #2d2d35; color: #fff; }
+    .month-badge { background: #222228; border: 1px solid #00b37e; color: #00b37e; padding: 6px 20px; border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; }
+    .month-badge:hover { background: #2a2a32; }
 
     /* Lista de Transações */
     .table-container { background: #222228; border-radius: 12px; border: 1px solid #2d2d35; overflow: hidden; margin-bottom: 30px; }
@@ -40,7 +43,7 @@
     td { padding: 14px 16px; border-bottom: 1px solid #2a2a32; font-size: 14px; color: #c4c4cc; }
     tr:hover { background: #26262e; }
 
-    /* Pílula de Resumo Diário Mobills */
+    /* Pílula de Resumo Diário */
     .day-summary-row { background: #1a1a1e; }
     .day-summary-td { padding: 8px 16px; text-align: center; }
     .day-pill { background: rgba(0, 179, 126, 0.15); color: #00b37e; padding: 4px 16px; border-radius: 15px; font-size: 12px; font-weight: bold; display: inline-block; }
@@ -77,12 +80,13 @@
     </div>
 
     <!-- Cards Superiores Interativos -->
-    <div class="cards-grid" id="cards-container">
-      <!-- Inserido dinamicamente pelo JS -->
-    </div>
+    <div class="cards-grid" id="cards-container"></div>
 
-    <div class="month-picker">
-      <span class="month-badge">Outubro 2026</span>
+    <!-- Navegação Temporal de Meses Mobills -->
+    <div class="month-picker-container">
+      <div class="nav-arrow" onclick="changeMonth(-1)">‹</div>
+      <div class="month-badge" id="current-month-display" onclick="selectMonthDirectly()">Outubro 2026</div>
+      <div class="nav-arrow" onclick="changeMonth(1)">›</div>
     </div>
 
     <!-- Tabela -->
@@ -99,9 +103,7 @@
             <th style="width: 40px; text-align: center;">Ações</th>
           </tr>
         </thead>
-        <tbody id="table-body">
-          <!-- Transações e resumos diários renderizados via JS -->
-        </tbody>
+        <tbody id="table-body"></tbody>
       </table>
     </div>
   </div>
@@ -178,14 +180,15 @@
   </div>
 
   <script>
-    // Todos os lançamentos do Mobills (01 a 23/10)
+    // Dados completos sincronizados com os totais do Mobills
     const initialData = [
-      // RECEITAS
+      // RECEITAS (Total Pendentes: R$ 2.750,00 / Recebidas: R$ 1.948,00 -> Total: R$ 4.468,00)
       { id: "r1", type: "income", status: false, date: "2026-10-21", description: "auxilio Meire", category: "Salário", account: "Carteira", amount: 1500.00 },
       { id: "r2", type: "income", status: false, date: "2026-10-10", description: "VALDIRENE APARECIDA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
       { id: "r3", type: "income", status: false, date: "2026-10-10", description: "Renan Guerreiro", category: "Mensalidade", account: "Carteira", amount: 210.00 },
       { id: "r4", type: "income", status: false, date: "2026-10-10", description: "Márcio José", category: "Mensalidade", account: "Carteira", amount: 350.00 },
       { id: "r5", type: "income", status: true, date: "2026-10-07", description: "ANTONELLA COSTA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "r5_dup", type: "income", status: true, date: "2026-10-07", description: "ANTONELLA COSTA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
       { id: "r6", type: "income", status: true, date: "2026-10-06", description: "Wesley Carlos", category: "Mensalidade", account: "Carteira", amount: 350.00 },
       { id: "r7", type: "income", status: true, date: "2026-10-06", description: "Ana Clara dos Reis", category: "Mensalidade", account: "Carteira", amount: 210.00 },
       { id: "r8", type: "income", status: true, date: "2026-10-05", description: "Doação pai", category: "Prêmio", account: "Carteira", amount: 350.00 },
@@ -252,8 +255,32 @@
       { id: "d55", type: "expense", status: false, date: "2026-10-01", description: "tv strem ( Netflix)", category: "Serviços", account: "Carteira", amount: 20.00 }
     ];
 
-    let transactions = JSON.parse(localStorage.getItem("mobills_nando_full")) || initialData;
+    let transactions = JSON.parse(localStorage.getItem("mobills_nando_audit")) || initialData;
     let currentTab = "all";
+    let currentDate = new Date(2026, 9, 1); // Outubro 2026
+
+    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+    function updateMonthDisplay() {
+      const m = monthNames[currentDate.getMonth()];
+      const y = currentDate.getFullYear();
+      document.getElementById("current-month-display").innerText = `${m} ${y}`;
+      renderApp();
+    }
+
+    function changeMonth(delta) {
+      currentDate.setMonth(currentDate.getMonth() + delta);
+      updateMonthDisplay();
+    }
+
+    function selectMonthDirectly() {
+      const m = prompt("Digite o mês (1-12):", currentDate.getMonth() + 1);
+      const y = prompt("Digite o ano (ex: 2026):", currentDate.getFullYear());
+      if (m && y) {
+        currentDate = new Date(parseInt(y), parseInt(m) - 1, 1);
+        updateMonthDisplay();
+      }
+    }
 
     function setTab(tab) {
       currentTab = tab;
@@ -336,7 +363,6 @@
       if (currentTab === "income") filtered = transactions.filter(t => t.type === "income");
       if (currentTab === "expense") filtered = transactions.filter(t => t.type === "expense");
 
-      // Agrupar por data
       const dates = [...new Set(filtered.map(t => t.date))].sort().reverse();
 
       dates.forEach(date => {
@@ -368,7 +394,6 @@
           tbody.appendChild(tr);
         });
 
-        // Pílula Diária Mobills
         const firstType = dayItems[0].type;
         const summaryTr = document.createElement("tr");
         summaryTr.className = "day-summary-row";
@@ -382,7 +407,7 @@
         tbody.appendChild(summaryTr);
       });
 
-      localStorage.setItem("mobills_nando_full", JSON.stringify(transactions));
+      localStorage.setItem("mobills_nando_audit", JSON.stringify(transactions));
     }
 
     function toggleStatus(index) {
