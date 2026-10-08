@@ -190,7 +190,7 @@
 
   <script>
     const initialData = [
-      // RECEITAS OUTUBRO (Totais Exatos: Pendente R$ 2.520,00 | Recebida R$ 1.718,00 | Total R$ 4.238,00)
+      // RECEITAS OUTUBRO (2026-10)
       { id: "r1", type: "income", status: false, date: "2026-10-21", description: "auxilio Meire", category: "Salário", account: "Carteira", amount: 1500.00 },
       { id: "r2", type: "income", status: false, date: "2026-10-10", description: "VALDIRENE APARECIDA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
       { id: "r3", type: "income", status: false, date: "2026-10-10", description: "Renan Guerreiro", category: "Mensalidade", account: "Carteira", amount: 210.00 },
@@ -204,7 +204,7 @@
       { id: "r11", type: "income", status: true, date: "2026-10-02", description: "SALETE BROTAS FERREIRA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
       { id: "r12", type: "income", status: true, date: "2026-10-02", description: "Marco Antonio Ciqueira", category: "Mensalidade", account: "Carteira", amount: 118.00 },
 
-      // DESPESAS OUTUBRO
+      // DESPESAS OUTUBRO (2026-10)
       { id: "d1", type: "expense", status: false, date: "2026-10-23", description: "Cartao de todos", category: "Saúde", account: "Carteira", amount: 33.40 },
       { id: "d2", type: "expense", status: false, date: "2026-10-20", description: "tennis NANDO(3/3)", category: "Vestuário", account: "Carteira", amount: 163.80 },
       { id: "d3", type: "expense", status: false, date: "2026-10-20", description: "Academia Nathy", category: "Saúde", account: "Carteira", amount: 90.00 },
@@ -261,16 +261,36 @@
       { id: "d54", type: "expense", status: true, date: "2026-10-01", description: "mangueira chuveiro", category: "Manutenção da casa", account: "Carteira", amount: 9.00 },
       { id: "d55", type: "expense", status: false, date: "2026-10-01", description: "tv strem ( Netflix)", category: "Serviços", account: "Carteira", amount: 20.00 },
 
-      // NOVEMBRO (PROJEÇÃO)
-      { id: "nov1", type: "expense", status: false, date: "2026-11-20", description: "PARCELA CARRO NOVO (1/60)", category: "Carro", account: "Carteira", amount: 1167.24 },
-      { id: "nov2", type: "expense", status: false, date: "2026-11-15", description: "Transferência Carro (2/6)", category: "Carro", account: "Carteira", amount: 205.00 },
-      { id: "nov3", type: "expense", status: false, date: "2026-11-07", description: "Companhia Elétrica", category: "companhia Eletrica", account: "Carteira", amount: 135.00 },
-      { id: "nov4", type: "expense", status: false, date: "2026-11-12", description: "Companhia de Água", category: "Companhia de Agua", account: "Carteira", amount: 35.54 },
-      { id: "nov5", type: "expense", status: false, date: "2026-11-16", description: "Internet", category: "Companhia Telefonica", account: "Carteira", amount: 119.90 },
-      { id: "nov6", type: "expense", status: false, date: "2026-11-15", description: "Telefonia Celular Tim", category: "Telefonia Celular", account: "Carteira", amount: 63.00 }
+      // NOVEMBRO (2026-11) - PROJEÇÕES RECORRENTES COMPLETAS
+      // Receitas Recorrentes Alunos/Auxílio em Novembro:
+      { id: "n_r1", type: "income", status: false, date: "2026-11-21", description: "auxilio Meire", category: "Salário", account: "Carteira", amount: 1500.00 },
+      { id: "n_r2", type: "income", status: false, date: "2026-11-10", description: "VALDIRENE APARECIDA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "n_r3", type: "income", status: false, date: "2026-11-10", description: "Renan Guerreiro", category: "Mensalidade", account: "Carteira", amount: 210.00 },
+      { id: "n_r4", type: "income", status: false, date: "2026-11-10", description: "Márcio José", category: "Mensalidade", account: "Carteira", amount: 350.00 },
+      { id: "n_r5", type: "income", status: false, date: "2026-11-07", description: "ANTONELLA COSTA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "n_r6", type: "income", status: false, date: "2026-11-06", description: "Wesley Carlos", category: "Mensalidade", account: "Carteira", amount: 350.00 },
+      { id: "n_r7", type: "income", status: false, date: "2026-11-06", description: "Ana Clara dos Reis", category: "Mensalidade", account: "Carteira", amount: 210.00 },
+      { id: "n_r8", type: "income", status: false, date: "2026-11-05", description: "CARLOS HENRIQUE", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "n_r9", type: "income", status: false, date: "2026-11-03", description: "Kauan santos dos Passos", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "n_r10", type: "income", status: false, date: "2026-11-02", description: "SALETE BROTAS FERREIRA", category: "Mensalidade", account: "Carteira", amount: 230.00 },
+      { id: "n_r11", type: "income", status: false, date: "2026-11-02", description: "Marco Antonio Ciqueira", category: "Mensalidade", account: "Carteira", amount: 218.00 },
+
+      // Despesas Recorrentes em Novembro:
+      { id: "n_d1", type: "expense", status: false, date: "2026-11-20", description: "PARCELA CARRO NOVO (1/60)", category: "Carro", account: "Carteira", amount: 1167.24 },
+      { id: "n_d2", type: "expense", status: false, date: "2026-11-15", description: "Transferência Carro (2/6)", category: "Carro", account: "Carteira", amount: 205.00 },
+      { id: "n_d3", type: "expense", status: false, date: "2026-11-07", description: "Companhia Elétrica", category: "companhia Eletrica", account: "Carteira", amount: 135.00 },
+      { id: "n_d4", type: "expense", status: false, date: "2026-11-12", description: "Companhia de Água", category: "Companhia de Agua", account: "Carteira", amount: 35.54 },
+      { id: "n_d5", type: "expense", status: false, date: "2026-11-16", description: "Internet", category: "Companhia Telefonica", account: "Carteira", amount: 119.90 },
+      { id: "n_d6", type: "expense", status: false, date: "2026-11-15", description: "Telefonia Celular Tim", category: "Telefonia Celular", account: "Carteira", amount: 63.00 },
+      { id: "n_d7", type: "expense", status: false, date: "2026-11-23", description: "Cartao de todos", category: "Saúde", account: "Carteira", amount: 33.40 },
+      { id: "n_d8", type: "expense", status: false, date: "2026-11-20", description: "Academia Nathy", category: "Saúde", account: "Carteira", amount: 90.00 },
+      { id: "n_d9", type: "expense", status: false, date: "2026-11-15", description: "Dizimo", category: "Igreja Catolica", account: "Carteira", amount: 50.00 },
+      { id: "n_d10", type: "expense", status: false, date: "2026-11-01", description: "tv strem ( Netflix)", category: "Serviços", account: "Carteira", amount: 20.00 },
+      { id: "n_d11", type: "expense", status: false, date: "2026-11-05", description: "Posto Tijucas (Gasolina)", category: "Transporte", account: "Carteira", amount: 150.00 },
+      { id: "n_d12", type: "expense", status: false, date: "2026-11-10", description: "Reserva de Emergência", category: "Outros", account: "Carteira", amount: 100.00 }
     ];
 
-    let transactions = JSON.parse(localStorage.getItem("mobills_nando_v2026")) || initialData;
+    let transactions = JSON.parse(localStorage.getItem("mobills_nando_recorrente_v2")) || initialData;
     let currentTab = "all";
     let selectedYear = 2026;
     let selectedMonth = 9; // Outubro (0-indexed: 9 = Outubro)
@@ -389,7 +409,7 @@
       if (currentTab === "expense") filtered = filtered.filter(t => t.type === "expense");
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="empty-msg">Nenhuma transação encontrada para este mês.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="empty-msg">Nenhuma transação cadastrada para este mês.</td></tr>`;
         return;
       }
 
@@ -437,7 +457,7 @@
         tbody.appendChild(summaryTr);
       });
 
-      localStorage.setItem("mobills_nando_v2026", JSON.stringify(transactions));
+      localStorage.setItem("mobills_nando_recorrente_v2", JSON.stringify(transactions));
     }
 
     function toggleStatus(index) {
